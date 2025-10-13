@@ -34,6 +34,7 @@ if (hamburger && navMenu) {
     }));
 }
 
+
 // Smooth scrolling amélioré avec easing
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -246,7 +247,7 @@ function showLoadingAnimation() {
     loader.innerHTML = `
         <div class="loading-content">
             <div class="loading-spinner"></div>
-            <p>Chargement de Tiro Network...</p>
+            <p>Chargement de Ostiro Network...</p>
         </div>
     `;
     
@@ -708,7 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Message de succès
     setTimeout(() => {
-        console.log('🚀 Tiro Network - Site chargé avec succès !');
+        console.log('🚀 Ostiro Network - Site chargé avec succès !');
         console.log('✨ Animations et effets activés');
         console.log('🎨 Thème spatial inspiré Blue Star');
     }, 2000);
@@ -739,31 +740,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Gestion du bouton de thème
-document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('themeToggle');
-    
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            
-            // Basculer entre les icônes lune/soleil
-            if (icon.classList.contains('fa-moon')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-            
-            // Animation du bouton
-            this.style.transform = 'rotate(360deg)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 300);
-        });
-    }
-});
 
 // Amélioration du formulaire astronaute
 document.addEventListener('DOMContentLoaded', function() {
@@ -1243,10 +1219,247 @@ document.addEventListener('DOMContentLoaded', () => {
     initParticleEffects();
     initNebulaEffect();
     initAstronautAnimation();
+    initHeroCarousel();
+    initAboutCarousel();
 });
 
+// ========================================
+// HERO CAROUSEL
+// ========================================
+
+function initHeroCarousel() {
+    const carousel = document.querySelector('.hero-carousel');
+    if (!carousel) return;
+    
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    const prevArrow = document.querySelector('.carousel-arrow-prev');
+    const nextArrow = document.querySelector('.carousel-arrow-next');
+    let currentSlide = 0;
+    let autoplayInterval;
+    
+    // Fonction pour changer de slide
+    function goToSlide(index) {
+        // S'assurer que l'index est dans les limites
+        if (index < 0) {
+            index = slides.length - 1;
+        } else if (index >= slides.length) {
+            index = 0;
+        }
+        
+        // Retirer la classe active de tous les slides et indicateurs
+        slides.forEach(slide => slide.classList.remove('active'));
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+        
+        // Ajouter la classe active au slide et indicateur actuel
+        slides[index].classList.add('active');
+        if (indicators[index]) {
+            indicators[index].classList.add('active');
+        }
+        
+        currentSlide = index;
+    }
+    
+    // Navigation par les flèches
+    if (prevArrow) {
+        prevArrow.addEventListener('click', () => {
+            goToSlide(currentSlide - 1);
+            resetAutoplay();
+        });
+    }
+    
+    if (nextArrow) {
+        nextArrow.addEventListener('click', () => {
+            goToSlide(currentSlide + 1);
+            resetAutoplay();
+        });
+    }
+    
+    // Navigation par les indicateurs
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            goToSlide(index);
+            resetAutoplay();
+        });
+    });
+    
+    // Navigation au clavier
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            goToSlide(currentSlide - 1);
+            resetAutoplay();
+        } else if (e.key === 'ArrowRight') {
+            goToSlide(currentSlide + 1);
+            resetAutoplay();
+        }
+    });
+    
+    // Autoplay
+    function startAutoplay() {
+        autoplayInterval = setInterval(() => {
+            goToSlide(currentSlide + 1);
+        }, 4000); // Change toutes les 4 secondes
+    }
+    
+    function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        startAutoplay();
+    }
+    
+    // Démarrer l'autoplay
+    startAutoplay();
+    
+    // Pause au survol du carousel
+    const carouselContainer = document.querySelector('.hero-carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoplayInterval);
+        });
+        
+        carouselContainer.addEventListener('mouseleave', () => {
+            startAutoplay();
+        });
+    }
+}
+
+// ========================================
+// ABOUT CAROUSEL
+// ========================================
+
+function initAboutCarousel() {
+    console.log('=== Initialisation About Carousel ===');
+    
+    const carousel = document.querySelector('.about-carousel');
+    if (!carousel) {
+        console.log('❌ About carousel non trouvé');
+        return;
+    }
+    
+    const slides = document.querySelectorAll('.about-carousel-slide');
+    const indicators = document.querySelectorAll('.about-carousel-indicator');
+    const prevArrow = document.querySelector('.about-carousel-arrow-prev');
+    const nextArrow = document.querySelector('.about-carousel-arrow-next');
+    
+    console.log('✅ About carousel trouvé:', {
+        carousel: carousel,
+        slides: slides.length,
+        indicators: indicators.length,
+        prevArrow: !!prevArrow,
+        nextArrow: !!nextArrow
+    });
+    
+    if (slides.length === 0) {
+        console.log('❌ Aucun slide trouvé!');
+        return;
+    }
+    
+    let currentSlide = 0;
+    let autoplayInterval;
+    
+    // Fonction pour changer de slide
+    function goToSlide(index) {
+        console.log('Changement vers slide:', index);
+        
+        // S'assurer que l'index est dans les limites
+        if (index < 0) {
+            index = slides.length - 1;
+        } else if (index >= slides.length) {
+            index = 0;
+        }
+        
+        // Retirer la classe active de tous les slides et indicateurs
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            console.log(`Slide ${i} désactivé`);
+        });
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+        
+        // Ajouter la classe active au slide et indicateur actuel
+        slides[index].classList.add('active');
+        console.log(`Slide ${index} activé`);
+        
+        if (indicators[index]) {
+            indicators[index].classList.add('active');
+        }
+        
+        currentSlide = index;
+    }
+    
+    // Navigation par les flèches
+    if (prevArrow) {
+        prevArrow.addEventListener('click', (e) => {
+            console.log('Clic flèche précédente');
+            e.preventDefault();
+            goToSlide(currentSlide - 1);
+            resetAutoplay();
+        });
+    }
+    
+    if (nextArrow) {
+        nextArrow.addEventListener('click', (e) => {
+            console.log('Clic flèche suivante');
+            e.preventDefault();
+            goToSlide(currentSlide + 1);
+            resetAutoplay();
+        });
+    }
+    
+    // Navigation par les indicateurs
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', (e) => {
+            console.log('Clic indicateur:', index);
+            e.preventDefault();
+            goToSlide(index);
+            resetAutoplay();
+        });
+    });
+    
+    // Autoplay
+    function startAutoplay() {
+        console.log('▶️ Autoplay démarré');
+        autoplayInterval = setInterval(() => {
+            console.log('🔄 Autoplay - changement de slide');
+            goToSlide(currentSlide + 1);
+        }, 5000); // Change toutes les 5 secondes
+    }
+    
+    function resetAutoplay() {
+        console.log('🔄 Reset autoplay');
+        clearInterval(autoplayInterval);
+        startAutoplay();
+    }
+    
+    // Test initial - afficher tous les slides
+    console.log('Slides trouvés:');
+    slides.forEach((slide, i) => {
+        console.log(`Slide ${i}:`, slide, 'Active:', slide.classList.contains('active'));
+    });
+    
+    // Démarrer l'autoplay
+    setTimeout(() => {
+        console.log('⏱️ Démarrage autoplay dans 2 secondes');
+        startAutoplay();
+    }, 2000);
+    
+    // Pause au survol
+    const carouselContainer = document.querySelector('.about-carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', () => {
+            console.log('⏸️ Pause autoplay (survol)');
+            clearInterval(autoplayInterval);
+        });
+        
+        carouselContainer.addEventListener('mouseleave', () => {
+            console.log('▶️ Reprise autoplay');
+            startAutoplay();
+        });
+    }
+    
+    console.log('✅ About carousel complètement initialisé');
+}
+
 // Export des fonctions pour utilisation externe
-window.TiroNetwork = {
+window.OstiroNetwork = {
     showNotification,
     typeWriter,
     animateCounter,
@@ -1254,7 +1467,9 @@ window.TiroNetwork = {
     createStarField,
     createParticleBurst,
     initSpaceTravelEffect,
-    initFAQAccordion
+    initFAQAccordion,
+    initHeroCarousel,
+    initAboutCarousel
 };
 
 // ========================================

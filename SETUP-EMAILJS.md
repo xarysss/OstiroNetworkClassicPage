@@ -1,4 +1,4 @@
-# Configuration EmailJS pour Tiro Network
+# Configuration EmailJS pour Ostiro Network
 
 ## 🚀 Guide d'installation EmailJS
 
@@ -24,14 +24,14 @@
 
 **Sujet :**
 ```
-Nouveau message de contact - Tiro Network
+Nouveau message de contact - Ostiro Network
 ```
 
 **Contenu :**
 ```
 Bonjour,
 
-Vous avez reçu un nouveau message de contact depuis votre site web Tiro Network :
+Vous avez reçu un nouveau message de contact depuis votre site web Ostiro Network :
 
 👤 Nom: {{from_name}}
 📧 Email: {{from_email}}

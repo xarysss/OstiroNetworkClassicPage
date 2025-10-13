@@ -2,7 +2,7 @@
 
 ## 🚀 Description
 
-Site web complet pour **Tiro Network**, une agence de création de sites web vitrine orientée conversion et support client nouvelle génération. Le site adopte un design moderne à thème spatial avec des tons noirs, blancs et des accents néon pour une expérience utilisateur immersive et professionnelle.
+Site web complet pour **Ostiro Network**, une agence de création de sites web vitrine orientée conversion et support client nouvelle génération. Le site adopte un design moderne à thème spatial avec des tons noirs, blancs et des accents néon pour une expérience utilisateur immersive et professionnelle.
 
 ## ✨ Caractéristiques
 
@@ -69,7 +69,7 @@ Site web complet pour **Tiro Network**, une agence de création de sites web vit
 ## 📁 Structure du Projet
 
 ```
-Site web ROTI/
+Site web Ostiro/
 ├── index.html          # Page d'accueil
 ├── services.html       # Page services
 ├── about.html          # Page à propos
@@ -117,12 +117,12 @@ Les animations sont contrôlées dans `script.js` :
 
 Pour toute question ou personnalisation :
 - **Email** : titouanmouysset@gmail.com
-- **Téléphone** : +33 7 66 20 95 01
+- **Téléphone** : +33 1 23 45 67 89
 
 ## 📄 Licence
 
-Ce site web est créé pour Tiro Network. Tous droits réservés.
+Ce site web est créé pour Ostiro Network. Tous droits réservés.
 
 ---
 
-**Tiro Network** - Votre partenaire de croissance digitale 🚀
+**Ostiro Network** - Votre partenaire de croissance digitale 🚀
