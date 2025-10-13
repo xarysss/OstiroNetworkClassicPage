@@ -1,0 +1,55 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Fichiers d'éditeur
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Fichiers de log
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dossiers de dépendances
+node_modules/
+bower_components/
+
+# Fichiers de build
+dist/
+build/
+*.min.js
+*.min.css
+
+# Fichiers de configuration sensibles
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Fichiers de cache
+.cache/
+.parcel-cache/
+
+# Fichiers de test
+coverage/
+.nyc_output/
+
+# Fichiers de sauvegarde
+*.bak
+*.backup
+*.old
+
+# Fichiers de documentation générés
+docs/_build/
+
+# Fichiers de déploiement
+.vercel
+.netlify
