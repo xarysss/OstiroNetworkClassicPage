@@ -1998,20 +1998,7 @@ a, button, .btn, .nav-link, .cta-nav, .social-link-bluestar, .legal-link, .foote
     opacity: 0.3;
 }
 
-/* Animations de chargement */
-.loading {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: var(--primary-color);
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
+/* Animations de chargement supprimées */
 
 /* Effets de texte animé */
 .animated-text {
@@ -7478,6 +7465,67 @@ a, button, .btn, .nav-link, .cta-nav, .social-link-bluestar, .legal-link, .foote
     .logo-sub {
         font-size: 0.7rem;
     }
+}
+
+/* ========================================
+OPTIMISATIONS PERFORMANCE
+======================================== */
+
+/* Optimisations de rendu */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimisation des animations */
+.logo-hologram-icon,
+.logo-hologram-text,
+.nav-liquid-link,
+.btn-hero-primary,
+.btn-services-primary,
+.carousel-slide,
+.method-card,
+.faq-item {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Optimisation des images */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Optimisation des transitions - plus rapides et fluides */
+.nav-liquid-link,
+.btn-hero-primary,
+.btn-services-primary,
+.method-card,
+.faq-question,
+.logo-hologram-icon,
+.logo-hologram-text,
+.carousel-slide,
+.floating-cart-btn {
+    transition: all 0.15s ease-out;
+}
+
+/* Transitions ultra-rapides pour les éléments critiques */
+.nav-liquid-link:hover,
+.btn-hero-primary:hover,
+.btn-services-primary:hover {
+    transition: all 0.1s ease-out;
+}
+
+/* Optimisation du scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Optimisation des effets de blur */
+.nav-glass-container,
+.method-card {
+    will-change: backdrop-filter;
 }
 
 /* ========================================

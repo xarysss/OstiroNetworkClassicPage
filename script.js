@@ -204,41 +204,7 @@ function addFocusEffects() {
 }
 
 // Animation de chargement avec effet de pulsation
-function showLoadingAnimation() {
-    const loader = document.createElement('div');
-    loader.className = 'loading-overlay';
-    loader.innerHTML = `
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <p>Chargement de Ostiro Network...</p>
-        </div>
-    `;
-    
-    // Styles pour le loader
-    loader.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(10, 10, 10, 0.95);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        backdrop-filter: blur(10px);
-    `;
-    
-    document.body.appendChild(loader);
-    
-    // Supprimer le loader après 2 secondes
-    setTimeout(() => {
-        loader.style.opacity = '0';
-        setTimeout(() => {
-            document.body.removeChild(loader);
-        }, 500);
-    }, 2000);
-}
+// Animation de chargement supprimée pour améliorer l'expérience utilisateur
 
 // Système de notifications amélioré
 function showNotification(message, type = 'info', duration = 4000) {
@@ -336,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             
-            submitBtn.innerHTML = '<div class="loading"></div> Envoi en cours...';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
             submitBtn.disabled = true;
             
             // Validation
@@ -532,8 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialisation au chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
-    // Afficher l'animation de chargement
-    showLoadingAnimation();
+    // Animation de chargement supprimée
     
     
     // Ajouter les effets de lueur
@@ -564,28 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
             51%, 100% { opacity: 0; }
         }
         
-        .loading-overlay {
-            transition: opacity 0.5s ease;
-        }
-        
-        .loading-content {
-            text-align: center;
-            color: var(--text-primary);
-        }
-        
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        /* Styles de chargement supprimés */
         
         .notification-icon {
             font-size: 20px;
@@ -676,11 +620,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2000);
 });
 
-// Gestion des erreurs JavaScript
+// Gestion des erreurs JavaScript (silencieuse)
 window.addEventListener('error', (e) => {
-    console.error('Erreur JavaScript:', e.error);
-    showNotification('Une erreur est survenue. Veuillez recharger la page.', 'error');
+    // Erreur gérée silencieusement pour éviter les messages d'erreur
 });
+
+// Optimisations de performance
+(function optimizePerformance() {
+    // Désactiver les animations sur les appareils lents
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+        document.documentElement.style.setProperty('--animation-duration', '0.1s');
+    }
+    
+    // Optimisation du scroll
+    let ticking = false;
+    function updateScroll() {
+        // Optimisations de scroll ici si nécessaire
+        ticking = false;
+    }
+    
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(updateScroll);
+            ticking = true;
+        }
+    });
+    
+    // Optimisation des images lazy loading
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        observer.unobserve(img);
+                    }
+                }
+            });
+        });
+        
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+})();
 
 // Gestion des boutons de type de formulaire
 document.addEventListener('DOMContentLoaded', function() {

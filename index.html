@@ -16,8 +16,12 @@
     <meta name="twitter:image" content="https://ostiro-network.com/images/Image1.jpg">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='rocketGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23c0c8d8;stop-opacity:1' /><stop offset='100%' style='stop-color:%236c7b95;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='48' fill='%230f0f23' stroke='%23c0c8d8' stroke-width='2'/><path d='M50 20 L35 65 L50 75 L65 65 Z' fill='url(%23rocketGrad)'/><circle cx='50' cy='45' r='8' fill='%23ffffff'/><path d='M35 65 L25 70 M65 65 L75 70' stroke='%23c0c8d8' stroke-width='3' stroke-linecap='round'/><path d='M42 75 L50 85 L58 75' fill='%23a0a8b8'/></svg>">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </noscript>
 </head>
 <body>
     <!-- Navigation Futuriste -->
@@ -475,11 +479,11 @@
         <span class="cart-count-badge">0</span>
     </button>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=BAAtiqVZ1B9LV5L4MutDeFXLuzIbytIIhsdhcjCItd3LF7i_NArgudkuf3Pq2uetNitqoA90xlP5lSH5U4&components=hosted-buttons&disable-funding=venmo&currency=EUR"></script>
-    <script src="payment-config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <script src="email-config.js"></script>
-    <script src="script.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAtiqVZ1B9LV5L4MutDeFXLuzIbytIIhsdhcjCItd3LF7i_NArgudkuf3Pq2uetNitqoA90xlP5lSH5U4&components=hosted-buttons&disable-funding=venmo&currency=EUR" defer></script>
+    <script src="payment-config.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js" defer></script>
+    <script src="email-config.js" defer></script>
+    <script src="script.js" defer></script>
     
     <script>
         // Initialize PayPal buttons when the page loads
