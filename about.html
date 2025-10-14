@@ -40,11 +40,11 @@
                     </a>
                 </li>
                 <li class="nav-liquid-item">
-                    <a href="services.html" class="nav-liquid-link">
+                    <a href="offres.html" class="nav-liquid-link">
                         <div class="liquid-icon">
                             <i class="fas fa-cogs"></i>
                         </div>
-                        <span class="liquid-text">Services</span>
+                        <span class="liquid-text">Offres</span>
                         <div class="liquid-ripple"></div>
                     </a>
                 </li>
@@ -324,7 +324,7 @@
                 <div class="team-member animate-on-scroll-scale hover-lift">
                     <div class="member-photo">
                         <!-- 0011: Photo Robin Britelle - Spécialiste Cold Call et SAV chez Ostiro Network -->
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Robin Britelle - Co-fondateur et Expert SEO chez Ostiro Network" >
+                        <img src="images/robin.png" alt="Robin Britelle - Co-fondateur et Expert SEO chez Ostiro Network" >
                         <div class="member-photo-glow"></div>
                     </div>
                     <div class="member-info">
@@ -438,22 +438,22 @@
                     <h3 class="footer-title-bluestar">Navigation</h3>
                     <ul class="footer-nav-list">
                         <li><a href="index.html" class="footer-link-bluestar">Accueil</a></li>
-                        <li><a href="services.html" class="footer-link-bluestar">Services</a></li>
+                        <li><a href="offres.html" class="footer-link-bluestar">Offres</a></li>
                         <li><a href="about.html" class="footer-link-bluestar">À propos</a></li>
                         <li><a href="contact.html" class="footer-link-bluestar">Contact</a></li>
-                        <li><a href="#" class="footer-link-bluestar">FAQ</a></li>
+                        <li><a href="contact.html#faq" class="footer-link-bluestar">FAQ</a></li>
                     </ul>
                 </div>
                 
                 <!-- Services Section -->
                 <div class="footer-services-section">
-                    <h3 class="footer-title-bluestar">Services</h3>
+                    <h3 class="footer-title-bluestar">Offres</h3>
                     <ul class="footer-services-list">
-                        <li><a href="services.html" class="footer-link-bluestar">Création de sites vitrines</a></li>
-                        <li><a href="services.html" class="footer-link-bluestar">Refonte & Optimisation</a></li>
-                        <li><a href="services.html" class="footer-link-bluestar">E-commerce & Funnels</a></li>
-                        <li><a href="services.html" class="footer-link-bluestar">Support Client</a></li>
-                        <li><a href="services.html" class="footer-link-bluestar">SEO & Web Marketing</a></li>
+                        <li><a href="offres.html" class="footer-link-bluestar">Création de sites vitrines</a></li>
+                        <li><a href="offres.html" class="footer-link-bluestar">Refonte & Optimisation</a></li>
+                        <li><a href="offres.html" class="footer-link-bluestar">E-commerce & Funnels</a></li>
+                        <li><a href="offres.html" class="footer-link-bluestar">Support Client</a></li>
+                        <li><a href="offres.html" class="footer-link-bluestar">SEO & Web Marketing</a></li>
                     </ul>
                 </div>
                 
@@ -490,6 +490,92 @@
         </div>
     </footer>
 
+    <!-- Cart Drawer UI -->
+    <div id="cartDrawer" class="cart-drawer" aria-hidden="true">
+        <div class="cart-drawer-header">
+            <h3>Votre panier</h3>
+            <button class="cart-close" aria-label="Fermer le panier">&times;</button>
+        </div>
+        
+        <div class="cart-drawer-body">
+            <ul class="cart-items"></ul>
+            <div class="cart-empty" style="display:none;">Votre panier est vide.</div>
+        </div>
+        
+        <div class="cart-drawer-footer">
+            <!-- Résumé des totaux -->
+            <div class="cart-total-row">
+                <span>Total</span>
+                <span class="cart-total">€0</span>
+            </div>
+            
+            <!-- Formulaire de contact -->
+            <form id="cartContactForm" class="cart-contact-form">
+                <div class="form-section">
+                    <h5>Informations personnelles</h5>
+                    <div class="cart-form-grid">
+                        <input type="text" name="firstName" placeholder="Prénom *" required>
+                        <input type="text" name="lastName" placeholder="Nom *" required>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h5>Contact</h5>
+                    <div class="cart-form-grid">
+                        <input type="email" name="email" placeholder="Email *" required>
+                        <input type="tel" name="phone" placeholder="Téléphone">
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h5>Votre projet</h5>
+                    <div class="cart-form-grid">
+                        <input type="text" name="company" placeholder="Entreprise">
+                        <textarea name="message" placeholder="Décrivez votre projet..." rows="3"></textarea>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- Paiement PayPal -->
+            <div class="paypal-section">
+                <div class="paypal-option">
+                    <h5>Site Vitrine + Hébergement (500€)</h5>
+                    <div id="paypal-buttons-container"></div>
+                </div>
+                
+                <div class="paypal-option">
+                    <h5>Site Vitrine sans Hébergement (400€)</h5>
+                    <div id="paypal-container-TWF4DWMJETCMS"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <button class="floating-cart-btn" aria-label="Ouvrir le panier">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count-badge">0</span>
+    </button>
+
+
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAtiqVZ1B9LV5L4MutDeFXLuzIbytIIhsdhcjCItd3LF7i_NArgudkuf3Pq2uetNitqoA90xlP5lSH5U4&components=hosted-buttons&disable-funding=venmo&currency=EUR"></script>
     <script src="script.js"></script>
+    
+    <script>
+        // Initialize PayPal buttons when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof paypal !== 'undefined') {
+                // Premier bouton - Site + Hébergement (500€)
+                paypal.HostedButtons({
+                    hostedButtonId: "3HFFE75LH2LBS",
+                }).render("#paypal-buttons-container");
+                
+                // Deuxième bouton - Site sans Hébergement (400€)
+                paypal.HostedButtons({
+                    hostedButtonId: "TWF4DWMJETCMS",
+                }).render("#paypal-container-TWF4DWMJETCMS");
+            }
+        });
+    </script>
 </body>
 </html>

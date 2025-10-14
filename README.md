@@ -81,7 +81,7 @@ Nous avons opté pour un **thème spatial** pour plusieurs raisons :
 ```
 Ostiro-Network/
 ├── 📄 index.html              # Page d'accueil avec carousel
-├── 🛠️ services.html           # Page services et tarifs
+├── 🛠️ offres.html           # Page services et tarifs
 ├── 👥 about.html              # Page à propos et équipe
 ├── 📞 contact.html            # Page contact et formulaire
 ├── 📋 gestion-rgpd.html       # Gestion RGPD

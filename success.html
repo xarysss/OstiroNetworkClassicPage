@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commande confirmée</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <section class="success-section" style="padding: 60px 20px; max-width: 900px; margin: 0 auto;">
+        <div style="text-align:center; margin-bottom: 24px;">
+            <i class="fas fa-check-circle" style="color:#10b981; font-size:64px;"></i>
+            <h1 style="margin-top: 12px;">Merci pour votre commande</h1>
+            <p>Un reçu vous a été envoyé par e-mail si l'adresse a été fournie.</p>
+        </div>
+
+        <div id="orderSummary" class="order-summary" style="background: var(--bg-secondary); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:20px;">
+            <h2>Récapitulatif</h2>
+            <div class="order-contact" style="margin-top:12px;"></div>
+            <ul class="order-items" style="list-style:none; padding:0; margin-top:12px;"></ul>
+            <div class="order-totals" style="margin-top:12px; font-weight:700;"></div>
+        </div>
+
+        <div style="text-align:center; margin-top:24px;">
+            <a href="index.html" class="pricing-btn" style="display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:10px; background: var(--gradient-primary); color:#0a0a0a; text-decoration:none;">
+                <i class="fas fa-home"></i> Retour à l'accueil
+            </a>
+        </div>
+    </section>
+
+    <script src="payment-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script src="email-config.js"></script>
+    <script>
+    // Init EmailJS if available
+    if (typeof EMAIL_CONFIG !== 'undefined' && window.emailjs) {
+        emailjs.init(EMAIL_CONFIG.PUBLIC_KEY);
+    }
+
+    function formatCurrency(value) {
+        try { return new Intl.NumberFormat('fr-FR', { style:'currency', currency: (window.PAYMENT_CONFIG && PAYMENT_CONFIG.CURRENCY) || 'EUR' }).format(value); } catch(e) { return '€' + value.toFixed(2); }
+    }
+
+    (function loadOrder() {
+        let order = null;
+        try { order = JSON.parse(localStorage.getItem('lastOrder') || 'null'); } catch(e) {}
+        const summary = document.getElementById('orderSummary');
+        if (!order) {
+            summary.innerHTML = '<p>Commande introuvable.</p>';
+            return;
+        }
+        const contactDiv = summary.querySelector('.order-contact');
+        const itemsUl = summary.querySelector('.order-items');
+        const totalsDiv = summary.querySelector('.order-totals');
+
+        contactDiv.innerHTML = `
+            <div><strong>Client:</strong> ${[order.contact.firstName, order.contact.lastName].filter(Boolean).join(' ') || '—'}</div>
+            <div><strong>Email:</strong> ${order.contact.email || '—'}</div>
+            <div><strong>Téléphone:</strong> ${order.contact.phone || '—'}</div>
+            <div><strong>Demande:</strong> ${order.contact.request || '—'}</div>
+            <div><strong>Méthode:</strong> ${order.method}</div>
+            <div><strong>Date:</strong> ${new Date(order.date).toLocaleString('fr-FR')}</div>
+        `;
+
+        itemsUl.innerHTML = '';
+        order.items.forEach(it => {
+            const li = document.createElement('li');
+            li.style.padding = '10px 0';
+            li.style.borderBottom = '1px dashed rgba(255,255,255,0.1)';
+            li.innerHTML = `<div style="display:flex; justify-content:space-between;">
+                <span>${it.name} x${it.quantity}</span>
+                <span>${formatCurrency(it.price * it.quantity)}</span>
+            </div>`;
+            itemsUl.appendChild(li);
+        });
+
+        totalsDiv.innerHTML = `${order.method === 'PayPal' ? `
+            <div style="display:flex; justify-content:space-between;"><span>Total (plein):</span><span>${formatCurrency(order.total)}</span></div>
+            <div style="display:flex; justify-content:space-between;"><span>Total PayPal (-15%):</span><span>${formatCurrency(order.discountedTotal)}</span></div>
+        ` : `
+            <div style="display:flex; justify-content:space-between;"><span>Total:</span><span>${formatCurrency(order.total)}</span></div>
+        `}`;
+
+        // Auto-send receipt if not sent yet (no reliable flag; best-effort)
+        if (order && order.contact && order.contact.email) {
+            try {
+                const sentFlag = localStorage.getItem('receiptSent');
+                if (!sentFlag && typeof EMAIL_CONFIG !== 'undefined' && window.emailjs) {
+                    const itemsText = order.items.map(it => `${it.name} x${it.quantity} — ${formatCurrency(it.price * it.quantity)}`).join('\n');
+                    const totalText = order.method === 'PayPal' ? `Total: ${formatCurrency(order.total)} (PayPal -15%: ${formatCurrency(order.discountedTotal)})` : `Total: ${formatCurrency(order.total)}`;
+                    const params = {
+                        to_email: order.contact.email,
+                        from_name: `${order.contact.firstName || ''} ${order.contact.lastName || ''}`.trim() || 'Client',
+                        from_email: order.contact.email || '',
+                        phone: order.contact.phone || '',
+                        request: order.contact.request || '',
+                        method: order.method,
+                        items: itemsText,
+                        total: totalText,
+                        currency: order.currency,
+                        date: order.date
+                    };
+                    emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, params)
+                        .then(() => localStorage.setItem('receiptSent', '1'))
+                        .catch(() => {});
+                }
+            } catch(e) {}
+        }
+    })();
+    </script>
+
+    <!-- Cart Drawer UI -->
+    <div id="cartDrawer" class="cart-drawer" aria-hidden="true">
+        <div class="cart-drawer-header">
+            <h3>Votre panier</h3>
+            <button class="cart-close" aria-label="Fermer le panier">&times;</button>
+        </div>
+        
+        <div class="cart-drawer-body">
+            <ul class="cart-items"></ul>
+            <div class="cart-empty" style="display:none;">Votre panier est vide.</div>
+        </div>
+        
+        <div class="cart-drawer-footer">
+            <!-- Résumé des totaux -->
+            <div class="cart-total-row">
+                <span>Total</span>
+                <span class="cart-total">€0</span>
+            </div>
+            
+            <!-- Formulaire de contact -->
+            <form id="cartContactForm" class="cart-contact-form">
+                <div class="form-section">
+                    <h5>Informations personnelles</h5>
+                    <div class="cart-form-grid">
+                        <input type="text" name="firstName" placeholder="Prénom *" required>
+                        <input type="text" name="lastName" placeholder="Nom *" required>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h5>Contact</h5>
+                    <div class="cart-form-grid">
+                        <input type="email" name="email" placeholder="Email *" required>
+                        <input type="tel" name="phone" placeholder="Téléphone">
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h5>Votre projet</h5>
+                    <div class="cart-form-grid">
+                        <input type="text" name="company" placeholder="Entreprise">
+                        <textarea name="message" placeholder="Décrivez votre projet..." rows="3"></textarea>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- Paiement PayPal -->
+            <div class="paypal-section">
+                <div class="paypal-option">
+                    <h5>Site Vitrine + Hébergement (500€)</h5>
+                    <div id="paypal-buttons-container"></div>
+                </div>
+                
+                <div class="paypal-option">
+                    <h5>Site Vitrine sans Hébergement (400€)</h5>
+                    <div id="paypal-container-TWF4DWMJETCMS"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <button class="floating-cart-btn" aria-label="Ouvrir le panier">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count-badge">0</span>
+    </button>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAtiqVZ1B9LV5L4MutDeFXLuzIbytIIhsdhcjCItd3LF7i_NArgudkuf3Pq2uetNitqoA90xlP5lSH5U4&components=hosted-buttons&disable-funding=venmo&currency=EUR"></script>
+    <script src="script.js"></script>
+    
+    <script>
+        // Initialize PayPal buttons when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof paypal !== 'undefined') {
+                // Premier bouton - Site + Hébergement (500€)
+                paypal.HostedButtons({
+                    hostedButtonId: "3HFFE75LH2LBS",
+                }).render("#paypal-buttons-container");
+                
+                // Deuxième bouton - Site sans Hébergement (400€)
+                paypal.HostedButtons({
+                    hostedButtonId: "TWF4DWMJETCMS",
+                }).render("#paypal-container-TWF4DWMJETCMS");
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+

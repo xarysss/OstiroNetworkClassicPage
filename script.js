@@ -146,43 +146,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Système de particules flottantes inspiré Blue Star
-function createFloatingParticles() {
-    const particlesContainer = document.createElement('div');
-    particlesContainer.className = 'floating-particles';
-    document.body.appendChild(particlesContainer);
-    
-    function createParticle() {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        // Position aléatoire
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
-        particle.style.animationDelay = Math.random() * 5 + 's';
-        
-        // Taille aléatoire
-        const size = Math.random() * 3 + 1;
-        particle.style.width = size + 'px';
-        particle.style.height = size + 'px';
-        
-        // Couleur aléatoire
-        const colors = ['#00ff88', '#0088ff', '#ff0088'];
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        
-        particlesContainer.appendChild(particle);
-        
-        // Supprimer la particule après l'animation
-        setTimeout(() => {
-            if (particle.parentNode) {
-                particle.parentNode.removeChild(particle);
-            }
-        }, 30000);
-    }
-    
-    // Créer des particules périodiquement
-    setInterval(createParticle, 2000);
-}
 
 // Effet de typing amélioré pour le hero
 function typeWriter(element, text, speed = 50) {
@@ -572,8 +535,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Afficher l'animation de chargement
     showLoadingAnimation();
     
-    // Créer les particules flottantes
-    createFloatingParticles();
     
     // Ajouter les effets de lueur
     addGlowEffect();
@@ -875,6 +836,362 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// ===============================
+// CART AND CHECKOUT INTEGRATION
+// ===============================
+
+(function initCartAndCheckout() {
+    const floatingCartBtn = document.querySelector('.floating-cart-btn');
+    const cartDrawer = document.getElementById('cartDrawer');
+    
+    // Debug: vérifier que le bouton est trouvé
+    console.log('Bouton panier trouvé:', floatingCartBtn);
+    console.log('Tiroir panier trouvé:', cartDrawer);
+    const cartClose = cartDrawer ? cartDrawer.querySelector('.cart-close') : null;
+    const cartItemsList = cartDrawer ? cartDrawer.querySelector('.cart-items') : null;
+    const cartEmpty = cartDrawer ? cartDrawer.querySelector('.cart-empty') : null;
+    const cartTotalEl = cartDrawer ? cartDrawer.querySelector('.cart-total') : null;
+    const stripeCheckoutBtn = cartDrawer ? cartDrawer.querySelector('.btn-checkout-stripe') : null;
+    const cartCountBadge = document.querySelector('.cart-count-badge');
+    const cartTotalPaypalEl = cartDrawer ? cartDrawer.querySelector('.cart-total-paypal') : null;
+    const cartContactForm = document.getElementById('cartContactForm');
+
+    let cart = loadCart();
+
+    function loadCart() {
+        try {
+            const raw = localStorage.getItem('cart');
+            return raw ? JSON.parse(raw) : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function getTotal() {
+        return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    }
+    function getPaypalTotal() {
+        return getTotal() * 0.85; // -15%
+    }
+
+    function updateBadge() {
+        if (!cartCountBadge) return;
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountBadge.textContent = String(count);
+    }
+
+    function renderCart() {
+        if (!cartItemsList || !cartTotalEl || !cartEmpty) return;
+        cartItemsList.innerHTML = '';
+        if (cart.length === 0) {
+            cartEmpty.style.display = 'block';
+        } else {
+            cartEmpty.style.display = 'none';
+        }
+        cart.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.className = 'cart-item';
+            li.innerHTML = `
+                <div>
+                    <div class="cart-item-title">${item.name}</div>
+                    <div class="cart-item-price">€${item.price.toFixed(2)}</div>
+                </div>
+                <div class="cart-item-controls">
+                    <button class="qty-dec" aria-label="Diminuer">−</button>
+                    <span class="cart-item-qty">${item.quantity}</span>
+                    <button class="qty-inc" aria-label="Augmenter">+</button>
+                    <button class="cart-remove" aria-label="Supprimer">Suppr.</button>
+                </div>
+            `;
+            const dec = li.querySelector('.qty-dec');
+            const inc = li.querySelector('.qty-inc');
+            const rem = li.querySelector('.cart-remove');
+            dec.addEventListener('click', () => {
+                if (cart[index].quantity > 1) cart[index].quantity -= 1; else cart.splice(index, 1);
+                saveCart();
+                renderCart();
+                updateBadge();
+            });
+            inc.addEventListener('click', () => {
+                cart[index].quantity += 1;
+                saveCart();
+                renderCart();
+                updateBadge();
+            });
+            rem.addEventListener('click', () => {
+                cart.splice(index, 1);
+                saveCart();
+                renderCart();
+                updateBadge();
+            });
+            cartItemsList.appendChild(li);
+        });
+        cartTotalEl.textContent = `€${getTotal().toFixed(2)}`;
+        if (cartTotalPaypalEl) {
+            cartTotalPaypalEl.textContent = `€${getPaypalTotal().toFixed(2)}`;
+        }
+    }
+
+    function openCart() {
+        console.log('Fonction openCart appelée');
+        if (!cartDrawer) {
+            console.error('Tiroir panier non trouvé dans openCart');
+            return;
+        }
+        console.log('Ouverture du tiroir panier');
+        cartDrawer.classList.add('open');
+        cartDrawer.setAttribute('aria-hidden', 'false');
+        renderCart();
+    }
+    function closeCart() {
+        if (!cartDrawer) return;
+        cartDrawer.classList.remove('open');
+        cartDrawer.setAttribute('aria-hidden', 'true');
+    }
+
+    // Add to cart buttons
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-product-id');
+            const name = btn.getAttribute('data-name');
+            const price = parseFloat(btn.getAttribute('data-price') || '0');
+            const existing = cart.find(i => i.id === id);
+            if (existing) existing.quantity += 1; else cart.push({ id, name, price, quantity: 1 });
+            saveCart();
+            updateBadge();
+            showNotification(`${name} a été ajouté au panier`, 'success', 2000);
+        });
+    });
+
+    if (floatingCartBtn) {
+        console.log('Ajout de l\'event listener au bouton panier');
+        floatingCartBtn.addEventListener('click', function(e) {
+            console.log('Clic sur le bouton panier détecté');
+            e.preventDefault();
+            openCart();
+        });
+    } else {
+        console.error('Bouton panier non trouvé!');
+    }
+    if (cartClose) cartClose.addEventListener('click', closeCart);
+
+    updateBadge();
+
+    // ========== Stripe Checkout ==========
+    if (stripeCheckoutBtn) {
+        stripeCheckoutBtn.addEventListener('click', async () => {
+            if (!isContactFormValid()) {
+                showNotification('Veuillez renseigner vos coordonnées avant le paiement.', 'warning');
+                return;
+            }
+            if (!window.PAYMENT_CONFIG || !window.PAYMENT_CONFIG.STRIPE_PUBLISHABLE_KEY) {
+                showNotification('Configuration Stripe manquante.', 'error');
+                return;
+            }
+            if (cart.length === 0) {
+                showNotification('Votre panier est vide.', 'warning');
+                return;
+            }
+
+            // Save order snapshot for success page and email
+            const orderData = buildOrderSnapshot('Stripe');
+            try { localStorage.setItem('lastOrder', JSON.stringify(orderData)); } catch (e) {}
+
+            // Load Stripe.js
+            const stripeJs = await loadStripeJs();
+            const stripe = window.Stripe(window.PAYMENT_CONFIG.STRIPE_PUBLISHABLE_KEY);
+
+            // Build line items from price IDs
+            const lineItems = cart.map(item => {
+                const priceId = window.PAYMENT_CONFIG.STRIPE_PRICES[item.id];
+                return priceId ? { price: priceId, quantity: item.quantity } : null;
+            }).filter(Boolean);
+
+            if (lineItems.length === 0) {
+                showNotification('Aucun article avec Price ID Stripe configuré.', 'error');
+                return;
+            }
+
+            stripe.redirectToCheckout({
+                mode: 'payment',
+                lineItems,
+                successUrl: window.location.origin + '/success.html',
+                cancelUrl: window.location.href
+            }).then(function(result) {
+                if (result.error) {
+                    showNotification(result.error.message || 'Erreur Stripe.', 'error');
+                }
+            });
+        });
+    }
+
+    function loadStripeJs() {
+        return new Promise((resolve, reject) => {
+            if (window.Stripe) return resolve();
+            const s = document.createElement('script');
+            s.src = 'https://js.stripe.com/v3/';
+            s.onload = () => resolve();
+            s.onerror = reject;
+            document.head.appendChild(s);
+        });
+    }
+
+    // ========== PayPal Buttons ==========
+    if (cartDrawer) {
+        setupPayPalButtons();
+    }
+
+    function setupPayPalButtons() {
+        const container = document.getElementById('paypal-buttons-container');
+        if (!container) return;
+        if (!window.PAYMENT_CONFIG || !window.PAYMENT_CONFIG.PAYPAL_CLIENT_ID) return;
+
+        // Load PayPal SDK with client-id and currency
+        loadPayPalSdk(window.PAYMENT_CONFIG.PAYPAL_CLIENT_ID, window.PAYMENT_CONFIG.CURRENCY || 'EUR')
+        .then(() => {
+            if (!window.paypal) return;
+            window.paypal.Buttons({
+                style: { layout: 'horizontal', color: 'gold', shape: 'rect', label: 'paypal' },
+                createOrder: function(data, actions) {
+                    if (!isContactFormValid()) {
+                        showNotification('Veuillez renseigner vos coordonnées avant le paiement.', 'warning');
+                        return;
+                    }
+                    const total = getPaypalTotal().toFixed(2);
+                    if (total === '0.00') {
+                        showNotification('Votre panier est vide.', 'warning');
+                        return;
+                    }
+                    return actions.order.create({
+                        purchase_units: [{ amount: { currency_code: window.PAYMENT_CONFIG.CURRENCY || 'EUR', value: total } }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        showNotification('Paiement PayPal réussi. Merci ' + (details.payer?.name?.given_name || ''), 'success');
+                        saveContactForLater();
+                        // Save snapshot, send receipt, then clear
+                        const orderData = buildOrderSnapshot('PayPal', true);
+                        try { localStorage.setItem('lastOrder', JSON.stringify(orderData)); } catch (e) {}
+                        ensureAndSendReceipt(orderData);
+                        cart = [];
+                        saveCart();
+                        updateBadge();
+                        renderCart();
+                        closeCart();
+                        // Optional: redirect to a success page
+                        window.location.href = 'success.html';
+                    });
+                },
+                onError: function(err) {
+                    console.error('PayPal error', err);
+                    showNotification('Erreur PayPal.', 'error');
+                }
+            }).render('#paypal-buttons-container');
+        })
+        .catch(() => {
+            console.warn('PayPal SDK failed to load');
+        });
+    }
+
+    function loadPayPalSdk(clientId, currency) {
+        return new Promise((resolve, reject) => {
+            if (window.paypal) return resolve();
+            const s = document.createElement('script');
+            s.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(clientId)}&currency=${encodeURIComponent(currency)}`;
+            s.onload = () => resolve();
+            s.onerror = reject;
+            document.head.appendChild(s);
+        });
+    }
+
+    // ===== Contact form validation & storage =====
+    function isContactFormValid() {
+        if (!cartContactForm) return false;
+        const data = new FormData(cartContactForm);
+        const firstName = (data.get('firstName') || '').toString().trim();
+        const lastName = (data.get('lastName') || '').toString().trim();
+        const email = (data.get('email') || '').toString().trim();
+        const phone = (data.get('phone') || '').toString().trim();
+        const request = (data.get('request') || '').toString().trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = firstName && lastName && emailRegex.test(email) && phone && request;
+        return Boolean(isValid);
+    }
+
+    function saveContactForLater() {
+        if (!cartContactForm) return;
+        const data = Object.fromEntries(new FormData(cartContactForm).entries());
+        try { localStorage.setItem('cartContact', JSON.stringify(data)); } catch (e) {}
+    }
+
+    function buildOrderSnapshot(method, applyPaypalDiscount = false) {
+        const contact = (() => {
+            try { return JSON.parse(localStorage.getItem('cartContact') || '{}'); } catch (e) { return {}; }
+        })();
+        const items = cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity }));
+        const total = getTotal();
+        const discountedTotal = applyPaypalDiscount ? total * 0.85 : total;
+        return {
+            method,
+            date: new Date().toISOString(),
+            contact,
+            items,
+            total,
+            discountedTotal,
+            currency: (window.PAYMENT_CONFIG && window.PAYMENT_CONFIG.CURRENCY) || 'EUR'
+        };
+    }
+
+    function ensureAndSendReceipt(orderData) {
+        try {
+            if (typeof EMAIL_CONFIG !== 'undefined' && window.emailjs) {
+                const toEmail = orderData?.contact?.email || EMAIL_CONFIG.TO_EMAIL;
+                // Build a simple text summary
+                const itemsText = orderData.items.map(it => `${it.name} x${it.quantity} — €${(it.price * it.quantity).toFixed(2)}`).join('\n');
+                const totalText = `Total: €${orderData.total.toFixed(2)}${orderData.method === 'PayPal' ? ` (PayPal -15%: €${orderData.discountedTotal.toFixed(2)})` : ''}`;
+
+                const templateParams = {
+                    to_email: toEmail,
+                    from_name: `${orderData.contact.firstName || ''} ${orderData.contact.lastName || ''}`.trim() || 'Client',
+                    from_email: orderData.contact.email || '',
+                    phone: orderData.contact.phone || '',
+                    request: orderData.contact.request || '',
+                    method: orderData.method,
+                    items: itemsText,
+                    total: totalText,
+                    currency: orderData.currency,
+                    date: orderData.date
+                };
+
+                emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, templateParams)
+                    .then(() => console.log('📧 Reçu envoyé'))
+                    .catch(err => console.warn('EmailJS error', err));
+            }
+        } catch (e) {
+            console.warn('Receipt send skipped', e);
+        }
+    }
+
+    if (cartContactForm) {
+        cartContactForm.addEventListener('input', () => {
+            // Visual validation feedback (simple border color)
+            const inputs = cartContactForm.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                if (input.checkValidity()) {
+                    input.style.borderColor = 'var(--success-color)';
+                } else {
+                    input.style.borderColor = 'var(--accent-color)';
+                }
+            });
+        });
+    }
+})();
 
 // Gestion des boutons de la page services
 document.addEventListener('DOMContentLoaded', function() {
@@ -1463,7 +1780,6 @@ window.OstiroNetwork = {
     showNotification,
     typeWriter,
     animateCounter,
-    createFloatingParticles,
     createStarField,
     createParticleBurst,
     initSpaceTravelEffect,
