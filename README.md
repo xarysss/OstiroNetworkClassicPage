@@ -92,17 +92,17 @@ Ostiro-Network/
 ├── 🧪 test-emailjs.html       # Tests EmailJS
 ├── 🧪 test-simple.html        # Tests simples
 ├── 📁 images/                 # Dossier des images
-│   ├── Image1.jpg
-│   ├── Image2.jpg
-│   ├── Image3.jpg
-│   ├── Image4.jpg
-│   ├── Image5.jpg
-│   ├── Image6.jpg
-│   ├── Images1.jpg
-│   ├── Images2.jpg
-│   ├── titouan.png
-│   ├── osman.png
-│   └── robin.png
+│   ├── Image1.webp
+│   ├── Image2.webp
+│   ├── Image3.webp
+│   ├── Image4.webp
+│   ├── Image5.webp
+│   ├── Image6.webp
+│   ├── Images1.webp
+│   ├── Images2.webp
+│   ├── titouan.webp
+│   ├── osman.webp
+│   └── robin.webp
 ├── 📚 SETUP-EMAILJS.md        # Documentation EmailJS
 └── 📖 README.md               # Documentation du projet
 ```

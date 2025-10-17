@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ostiro Network</title>
     <meta name="description" content="Services Ostiro Network : Sites vitrines 400€, hébergement inclus 500€, support client. SEO avancé, copywriting persuasif, garantie satisfait ou remboursé.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://ostiro-network.com/offres.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Offres • Ostiro Network">
+    <meta property="og:description" content="Sites vitrines, hébergement et support. Tarifs transparents.">
+    <meta property="og:url" content="https://ostiro-network.com/offres.html">
+    <meta property="og:image" content="https://ostiro-network.com/images/Image1.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Offres • Ostiro Network">
+    <meta name="twitter:description" content="Sites vitrines, hébergement et support. Tarifs transparents.">
+    <meta name="twitter:image" content="https://ostiro-network.com/images/Image1.webp">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='rocketGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23c0c8d8;stop-opacity:1' /><stop offset='100%' style='stop-color:%236c7b95;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='48' fill='%230f0f23' stroke='%23c0c8d8' stroke-width='2'/><path d='M50 20 L35 65 L50 75 L65 65 Z' fill='url(%23rocketGrad)'/><circle cx='50' cy='45' r='8' fill='%23ffffff'/><path d='M35 65 L25 70 M65 65 L75 70' stroke='%23c0c8d8' stroke-width='3' stroke-linecap='round'/><path d='M42 75 L50 85 L58 75' fill='%23a0a8b8'/></svg>">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -19,6 +30,32 @@
     </script>
     <!-- Stripe Buy Button SDK -->
     <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://ostiro-network.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Offres", "item": "https://ostiro-network.com/offres.html"}
+      ]
+    }
+    </script>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: 'Offres - Ostiro Network',
+            page_location: window.location.href,
+            custom_map: {
+                'custom_parameter_1': 'page_type',
+                'custom_parameter_2': 'user_journey'
+            }
+        });
+    </script>
 </head>
 <body>
     <!-- Navigation Futuriste -->
@@ -552,26 +589,26 @@
                     <h5>Votre projet</h5>
                     <textarea name="request" rows="3" placeholder="Décrivez votre projet et vos besoins..." required></textarea>
                 </div>
+                
+                <!-- Bouton de validation du formulaire -->
+                <div class="form-section">
+                    <button type="button" id="validateFormBtn" class="btn-validate-form">
+                        <i class="fas fa-check"></i>
+                        Valider mes informations
+                    </button>
+                </div>
             </form>
             
-            <!-- Options de paiement -->
-            <div class="payment-options-section">
+            <!-- Options de paiement dynamiques (cachées par défaut) -->
+            <div class="payment-options-section" id="paymentOptionsSection" style="display: none;">
                 <h4>
                     <i class="fas fa-credit-card"></i>
                     Mode de paiement
                 </h4>
                 
-                <!-- Paiement PayPal -->
-                <div class="paypal-section">
-                    <div class="paypal-option">
-                        <h5>Site Vitrine + Hébergement (500€)</h5>
-                        <div id="paypal-buttons-container"></div>
-                    </div>
-                    
-                    <div class="paypal-option">
-                        <h5>Site Vitrine sans Hébergement (400€)</h5>
-                        <div id="paypal-container-TWF4DWMJETCMS"></div>
-                    </div>
+                <div class="payment-methods">
+                    <!-- Boutons de paiement dynamiques selon le panier -->
+                    <div id="dynamicPaymentButtons"></div>
                 </div>
             </div>
         </div>

@@ -1,3 +1,231 @@
+// ========================================
+// ANALYTICS & CONVERSION TRACKING
+// ========================================
+
+// Fonction pour envoyer des événements à Google Analytics
+function trackEvent(eventName, parameters = {}) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, {
+            event_category: parameters.category || 'User Interaction',
+            event_label: parameters.label || '',
+            value: parameters.value || 0,
+            custom_parameter_1: parameters.page_type || 'unknown',
+            custom_parameter_2: parameters.user_journey || 'unknown',
+            ...parameters
+        });
+    }
+}
+
+// Tracking du funnel de conversion
+const conversionFunnel = {
+    // Étape 1: Visite de la page
+    pageView: function(pageName) {
+        trackEvent('page_view', {
+            category: 'Funnel',
+            label: pageName,
+            page_type: pageName.toLowerCase().replace(/\s+/g, '_'),
+            user_journey: 'awareness'
+        });
+    },
+    
+    // Étape 2: Interaction avec le contenu
+    contentEngagement: function(contentType, contentId) {
+        trackEvent('content_engagement', {
+            category: 'Funnel',
+            label: `${contentType}_${contentId}`,
+            page_type: 'engagement',
+            user_journey: 'interest'
+        });
+    },
+    
+    // Étape 3: Ajout au panier
+    addToCart: function(productId, productName, price) {
+        trackEvent('add_to_cart', {
+            category: 'E-commerce',
+            label: productName,
+            value: price,
+            page_type: 'conversion',
+            user_journey: 'consideration',
+            product_id: productId,
+            product_name: productName,
+            currency: 'EUR'
+        });
+    },
+    
+    // Étape 4: Début du formulaire
+    formStart: function(formType) {
+        trackEvent('form_start', {
+            category: 'Funnel',
+            label: formType,
+            page_type: 'conversion',
+            user_journey: 'intent'
+        });
+    },
+    
+    // Étape 5: Validation du formulaire
+    formValidation: function(formType, cartValue) {
+        trackEvent('form_validation', {
+            category: 'Funnel',
+            label: formType,
+            value: cartValue,
+            page_type: 'conversion',
+            user_journey: 'purchase_intent'
+        });
+    },
+    
+    // Étape 6: Initiation du paiement
+    paymentInitiated: function(paymentMethod, amount) {
+        trackEvent('payment_initiated', {
+            category: 'E-commerce',
+            label: paymentMethod,
+            value: amount,
+            page_type: 'conversion',
+            user_journey: 'purchase',
+            payment_method: paymentMethod,
+            currency: 'EUR'
+        });
+    },
+    
+    // Étape 7: Paiement réussi
+    paymentSuccess: function(paymentMethod, amount, transactionId) {
+        trackEvent('purchase', {
+            category: 'E-commerce',
+            label: 'payment_success',
+            value: amount,
+            page_type: 'conversion',
+            user_journey: 'conversion',
+            payment_method: paymentMethod,
+            transaction_id: transactionId,
+            currency: 'EUR'
+        });
+    },
+    
+    // Étape 8: Abandon du panier
+    cartAbandonment: function(cartValue, itemsCount) {
+        trackEvent('cart_abandonment', {
+            category: 'Funnel',
+            label: 'cart_abandoned',
+            value: cartValue,
+            page_type: 'abandonment',
+            user_journey: 'abandoned',
+            items_count: itemsCount,
+            currency: 'EUR'
+        });
+    }
+};
+
+// Tracking des erreurs et problèmes
+function trackError(errorType, errorMessage, errorLocation) {
+    trackEvent('error_occurred', {
+        category: 'Error Tracking',
+        label: errorType,
+        page_type: 'error',
+        user_journey: 'error',
+        error_message: errorMessage,
+        error_location: errorLocation
+    });
+}
+
+// Tracking des performances de chargement
+function trackPageLoad() {
+    window.addEventListener('load', () => {
+        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        trackEvent('page_load_time', {
+            category: 'Performance',
+            label: 'page_load',
+            value: loadTime,
+            page_type: 'performance',
+            user_journey: 'loading'
+        });
+    });
+}
+
+// Tracking des interactions utilisateur
+function trackUserInteractions() {
+    // Clics sur les boutons CTA
+    document.addEventListener('click', (e) => {
+        const button = e.target.closest('button, .btn, .cta-button');
+        if (button) {
+            const buttonText = button.textContent.trim();
+            const buttonClass = button.className;
+            
+            trackEvent('button_click', {
+                category: 'User Interaction',
+                label: buttonText,
+                page_type: 'interaction',
+                user_journey: 'engagement',
+                button_class: buttonClass
+            });
+        }
+    });
+    
+    // Scroll depth tracking
+    let maxScroll = 0;
+    window.addEventListener('scroll', () => {
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        if (scrollPercent > maxScroll && scrollPercent % 25 === 0) {
+            maxScroll = scrollPercent;
+            trackEvent('scroll_depth', {
+                category: 'User Engagement',
+                label: `${scrollPercent}%`,
+                value: scrollPercent,
+                page_type: 'engagement',
+                user_journey: 'engagement'
+            });
+        }
+    });
+    
+    // Time on page tracking
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+        const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+        trackEvent('time_on_page', {
+            category: 'User Engagement',
+            label: 'page_duration',
+            value: timeOnPage,
+            page_type: 'engagement',
+            user_journey: 'engagement'
+        });
+    });
+}
+
+// Tracking de l'abandon du panier
+function trackCartAbandonment() {
+    let cartAbandonmentTracked = false;
+    
+    // Vérifier l'abandon du panier avant de quitter la page
+    window.addEventListener('beforeunload', () => {
+        const cart = loadCart();
+        if (cart.length > 0 && !cartAbandonmentTracked) {
+            const cartValue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const itemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            conversionFunnel.cartAbandonment(cartValue, itemsCount);
+            cartAbandonmentTracked = true;
+        }
+    });
+    
+    // Marquer comme non abandonné si l'utilisateur revient
+    window.addEventListener('focus', () => {
+        cartAbandonmentTracked = false;
+    });
+}
+
+// Initialiser le tracking
+document.addEventListener('DOMContentLoaded', () => {
+    // Tracking de la page actuelle
+    const currentPage = document.title.split(' - ')[0] || 'Unknown Page';
+    conversionFunnel.pageView(currentPage);
+    
+    // Initialiser les trackers
+    trackPageLoad();
+    trackUserInteractions();
+    trackCartAbandonment();
+});
+
+// ========================================
+// NAVIGATION & UI
+// ========================================
+
 // Navigation mobile améliorée
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -231,31 +459,35 @@ function showNotification(message, type = 'info', duration = 4000) {
         position: fixed;
         top: 100px;
         right: 20px;
-        background: var(--bg-card);
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: var(--text-primary);
+        border: 1px solid rgba(30, 58, 138, 0.3);
+        color: #ffffff;
         padding: 16px 20px;
         border-radius: 12px;
         display: flex;
         align-items: center;
         gap: 12px;
-        z-index: 10000;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        z-index: 10001;
+        box-shadow: 0 8px 32px rgba(30, 58, 138, 0.4);
         transform: translateX(400px);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         max-width: 400px;
+        font-weight: 500;
     `;
     
     // Couleur selon le type
     const colors = {
-        success: '#00ff88',
-        error: '#ff0088',
-        warning: '#ffaa00',
-        info: '#0088ff'
+        success: '#10b981',
+        error: '#ef4444',
+        warning: '#f59e0b',
+        info: '#3b82f6'
     };
     
     notification.style.borderLeft = `4px solid ${colors[type]}`;
+    notification.style.borderTop = `1px solid ${colors[type]}`;
+    notification.style.borderRight = `1px solid ${colors[type]}`;
+    notification.style.borderBottom = `1px solid ${colors[type]}`;
     
     document.body.appendChild(notification);
     
@@ -430,34 +662,45 @@ document.addEventListener('DOMContentLoaded', () => {
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
         const answer = item.querySelector('.faq-answer');
-        const icon = question.querySelector('i');
+        const icon = question ? question.querySelector('.question-arrow i') : null;
         
         if (question && answer) {
-            question.addEventListener('click', () => {
+            question.addEventListener('click', (e) => {
+                e.preventDefault();
                 const isActive = item.classList.contains('active');
                 
-                // Fermer tous les autres items
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                        const otherAnswer = otherItem.querySelector('.faq-answer');
-                        const otherIcon = otherItem.querySelector('.faq-question i');
-                        if (otherAnswer && otherIcon) {
-                            otherAnswer.style.maxHeight = '0';
-                            otherIcon.style.transform = 'rotate(0deg)';
-                        }
-                    }
-                });
-                
-                // Toggle l'item actuel
-                if (!isActive) {
-                    item.classList.add('active');
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    if (icon) icon.style.transform = 'rotate(45deg)';
-                } else {
+                // Si la question est déjà ouverte, la fermer
+                if (isActive) {
                     item.classList.remove('active');
                     answer.style.maxHeight = '0';
-                    if (icon) icon.style.transform = 'rotate(0deg)';
+                    answer.style.opacity = '0';
+                    if (icon) {
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                } else {
+                    // Fermer tous les autres items d'abord
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            const otherAnswer = otherItem.querySelector('.faq-answer');
+                            const otherIcon = otherItem.querySelector('.question-arrow i');
+                            if (otherAnswer) {
+                                otherAnswer.style.maxHeight = '0';
+                                otherAnswer.style.opacity = '0';
+                            }
+                            if (otherIcon) {
+                                otherIcon.style.transform = 'rotate(0deg)';
+                            }
+                        }
+                    });
+                    
+                    // Puis ouvrir l'item actuel
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    answer.style.opacity = '1';
+                    if (icon) {
+                        icon.style.transform = 'rotate(180deg)';
+                    }
                 }
             });
         }
@@ -890,7 +1133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="qty-dec" aria-label="Diminuer">−</button>
                     <span class="cart-item-qty">${item.quantity}</span>
                     <button class="qty-inc" aria-label="Augmenter">+</button>
-                    <button class="cart-remove" aria-label="Supprimer">Suppr.</button>
+                    <button class="cart-remove" aria-label="Supprimer">&times;</button>
                 </div>
             `;
             const dec = li.querySelector('.qty-dec');
@@ -950,6 +1193,9 @@ document.addEventListener('DOMContentLoaded', function() {
             saveCart();
             updateBadge();
             showNotification(`${name} a été ajouté au panier`, 'success', 2000);
+            
+            // Tracking analytics
+            conversionFunnel.addToCart(id, name, price);
         });
     });
 
@@ -966,6 +1212,55 @@ document.addEventListener('DOMContentLoaded', function() {
     if (cartClose) cartClose.addEventListener('click', closeCart);
 
     updateBadge();
+
+    // ===== Initialisation : Cacher la section de paiement =====
+    function hidePaymentSection() {
+        const paymentSection = document.getElementById('paymentOptionsSection');
+        if (paymentSection) {
+            paymentSection.style.display = 'none';
+        }
+    }
+    
+    // Cacher la section de paiement au chargement
+    hidePaymentSection();
+
+    // ===== Fermer le panier en cliquant en dehors =====
+    function setupClickOutsideToClose() {
+        document.addEventListener('click', function(event) {
+            const cartDrawer = document.getElementById('cartDrawer');
+            const floatingCartBtn = document.querySelector('.floating-cart-btn');
+            
+            // Vérifier si le panier est ouvert
+            if (cartDrawer && cartDrawer.classList.contains('open')) {
+                // Vérifier si le clic est en dehors du panier et du bouton
+                const isClickInsideCart = cartDrawer.contains(event.target);
+                const isClickOnCartButton = floatingCartBtn && floatingCartBtn.contains(event.target);
+                
+                // Si le clic est en dehors, fermer le panier
+                if (!isClickInsideCart && !isClickOnCartButton) {
+                    closeCart();
+                }
+            }
+        });
+    }
+    
+    // Initialiser la fermeture en cliquant en dehors
+    setupClickOutsideToClose();
+
+    // ===== Fermer le panier avec la touche Échap =====
+    function setupEscapeKeyToClose() {
+        document.addEventListener('keydown', function(event) {
+            const cartDrawer = document.getElementById('cartDrawer');
+            
+            // Si la touche Échap est pressée et que le panier est ouvert
+            if (event.key === 'Escape' && cartDrawer && cartDrawer.classList.contains('open')) {
+                closeCart();
+            }
+        });
+    }
+    
+    // Initialiser la fermeture avec Échap
+    setupEscapeKeyToClose();
 
     // ========== Stripe Checkout ==========
     if (stripeCheckoutBtn) {
@@ -1058,19 +1353,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(details) {
+                        // Tracking: paiement réussi
+                        const total = getTotal();
+                        conversionFunnel.paymentSuccess('PayPal', total, details.id);
+                        
                         showNotification('Paiement PayPal réussi. Merci ' + (details.payer?.name?.given_name || ''), 'success');
                         saveContactForLater();
                         // Save snapshot, send receipt, then clear
                         const orderData = buildOrderSnapshot('PayPal', true);
                         try { localStorage.setItem('lastOrder', JSON.stringify(orderData)); } catch (e) {}
+                        
+                        // Envoyer le reçu au client
                         ensureAndSendReceipt(orderData);
+                        
+                        // Envoyer la notification au propriétaire
+                        sendPaymentNotificationToOwner(orderData);
+                        
                         cart = [];
                         saveCart();
                         updateBadge();
                         renderCart();
                         closeCart();
+                        
+                        // Afficher le message de confirmation
+                        showSuccessMessage();
+                        
                         // Optional: redirect to a success page
-                        window.location.href = 'success.html';
+                        setTimeout(() => {
+                            window.location.href = 'success.html';
+                        }, 3000);
                     });
                 },
                 onError: function(err) {
@@ -1107,6 +1418,51 @@ document.addEventListener('DOMContentLoaded', function() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const isValid = firstName && lastName && emailRegex.test(email) && phone && request;
         return Boolean(isValid);
+    }
+
+    // ===== Envoi automatique des informations du formulaire =====
+    function sendContactFormEmail() {
+        if (!cartContactForm || !isContactFormValid()) {
+            showNotification('Veuillez remplir tous les champs obligatoires.', 'warning');
+            return Promise.reject('Formulaire invalide');
+        }
+
+        const formData = new FormData(cartContactForm);
+        const contactData = {
+            firstName: formData.get('firstName'),
+            lastName: formData.get('lastName'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            request: formData.get('request'),
+            company: formData.get('company') || ''
+        };
+
+        // Préparer les paramètres pour EmailJS
+        const templateParams = {
+            to_email: EMAIL_CONFIG.TO_EMAIL,
+            from_name: `${contactData.firstName} ${contactData.lastName}`,
+            from_email: contactData.email,
+            phone: contactData.phone,
+            company: contactData.company,
+            message: contactData.request,
+            cart_items: cart.map(item => `${item.name} x${item.quantity} - €${item.price}`).join('\n'),
+            cart_total: `€${getTotal().toFixed(2)}`,
+            date: new Date().toLocaleString('fr-FR')
+        };
+
+        console.log('Envoi des informations du formulaire:', templateParams);
+
+        return emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, templateParams)
+            .then((response) => {
+                console.log('✅ Informations du formulaire envoyées avec succès!', response.status, response.text);
+                showNotification('Vos informations ont été enregistrées avec succès !', 'success');
+                return response;
+            })
+            .catch((error) => {
+                console.error('❌ Erreur lors de l\'envoi des informations:', error);
+                showNotification('Erreur lors de l\'envoi des informations. Veuillez réessayer.', 'error');
+                throw error;
+            });
     }
 
     function saveContactForLater() {
@@ -1163,6 +1519,51 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // ===== Notifications de paiement pour le propriétaire =====
+    function sendPaymentNotificationToOwner(orderData) {
+        try {
+            if (typeof EMAIL_CONFIG !== 'undefined' && window.emailjs) {
+                const itemsText = orderData.items.map(it => `${it.name} x${it.quantity} — €${(it.price * it.quantity).toFixed(2)}`).join('\n');
+                const totalText = `Total: €${orderData.total.toFixed(2)}${orderData.method === 'PayPal' ? ` (PayPal -15%: €${orderData.discountedTotal.toFixed(2)})` : ''}`;
+
+                const notificationParams = {
+                    to_email: EMAIL_CONFIG.TO_EMAIL, // Email du propriétaire
+                    from_name: 'Système de Paiement',
+                    from_email: 'noreply@ostiro-network.com',
+                    subject: `🎉 NOUVEAU PAIEMENT REÇU - ${orderData.method}`,
+                    client_name: `${orderData.contact.firstName || ''} ${orderData.contact.lastName || ''}`.trim() || 'Client',
+                    client_email: orderData.contact.email || '',
+                    client_phone: orderData.contact.phone || '',
+                    client_request: orderData.contact.request || '',
+                    payment_method: orderData.method,
+                    items: itemsText,
+                    total: totalText,
+                    currency: orderData.currency,
+                    date: orderData.date,
+                    message: `Un nouveau paiement a été effectué via ${orderData.method} pour un montant de ${totalText}.`
+                };
+
+                // Utiliser un template différent pour les notifications admin
+                const adminTemplateId = 'template_admin_notification'; // Tu devras créer ce template dans EmailJS
+                
+                emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, notificationParams)
+                    .then(() => {
+                        console.log('📧 Notification de paiement envoyée au propriétaire');
+                        showNotification('✅ Paiement confirmé ! Vous recevrez un email de confirmation.', 'success');
+                    })
+                    .catch(err => {
+                        console.warn('Erreur envoi notification admin:', err);
+                        // Fallback: utiliser le template principal
+                        emailjs.send(EMAIL_CONFIG.SERVICE_ID, EMAIL_CONFIG.TEMPLATE_ID, notificationParams)
+                            .then(() => console.log('📧 Notification envoyée via template principal'))
+                            .catch(err2 => console.warn('Erreur template principal:', err2));
+                    });
+            }
+        } catch (e) {
+            console.warn('Notification admin skipped', e);
+        }
+    }
+
     if (cartContactForm) {
         cartContactForm.addEventListener('input', () => {
             // Visual validation feedback (simple border color)
@@ -1175,6 +1576,270 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
+    }
+
+    // ===== Gestion du bouton de validation du formulaire =====
+    const validateFormBtn = document.getElementById('validateFormBtn');
+    if (validateFormBtn) {
+        validateFormBtn.addEventListener('click', async () => {
+            if (!isContactFormValid()) {
+                showNotification('Veuillez remplir tous les champs obligatoires.', 'warning');
+                return;
+            }
+
+            // Animation du bouton
+            const originalText = validateFormBtn.innerHTML;
+            validateFormBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+            validateFormBtn.disabled = true;
+
+            try {
+                // Tracking: début de validation du formulaire
+                const cartValue = getTotal();
+                conversionFunnel.formValidation('contact_form', cartValue);
+                
+                // Envoyer les informations par email
+                await sendContactFormEmail();
+                
+                // Sauvegarder localement
+                saveContactForLater();
+                
+                // Afficher les boutons de paiement dynamiques
+                showDynamicPaymentButtons();
+                
+                // Marquer le formulaire comme validé
+                validateFormBtn.innerHTML = '<i class="fas fa-check"></i> Informations validées !';
+                validateFormBtn.style.background = 'var(--success-color)';
+                validateFormBtn.disabled = true;
+                
+            } catch (error) {
+                console.error('Erreur lors de la validation:', error);
+                validateFormBtn.innerHTML = originalText;
+                validateFormBtn.disabled = false;
+            }
+        });
+    }
+
+    // ===== Affichage des boutons de paiement dynamiques =====
+    function showDynamicPaymentButtons() {
+        const paymentSection = document.getElementById('paymentOptionsSection');
+        const dynamicButtons = document.getElementById('dynamicPaymentButtons');
+        
+        if (!paymentSection || !dynamicButtons) return;
+
+        // S'assurer que la section est cachée au début
+        paymentSection.style.display = 'none';
+        
+        // Afficher la section de paiement seulement après validation
+        paymentSection.style.display = 'block';
+
+        // Générer les boutons selon le contenu du panier
+        let buttonsHTML = '';
+        
+        // Vérifier quels produits sont dans le panier
+        const hasSiteVitrine = cart.some(item => item.id === 'site_vitrine');
+        const hasSiteHebergement = cart.some(item => item.id === 'site_hebergement');
+        const hasHebergementSupport = cart.some(item => item.id === 'hebergement_support');
+
+        if (hasSiteHebergement) {
+            // Si "Site Vitrine + Hébergement" est dans le panier
+            buttonsHTML += `
+                <div class="payment-option">
+                    <p class="payment-note">Paiement sécurisé via PayPal</p>
+                    <div id="paypal-buttons-container"></div>
+                </div>
+            `;
+        } else if (hasSiteVitrine) {
+            // Si "Site Vitrine" est dans le panier
+            buttonsHTML += `
+                <div class="payment-option">
+                    <p class="payment-note">Paiement sécurisé via PayPal</p>
+                    <div id="paypal-container-TWF4DWMJETCMS"></div>
+                </div>
+            `;
+        } else if (hasHebergementSupport) {
+            // Si "Hébergement + Support" est dans le panier
+            buttonsHTML += `
+                <div class="payment-option">
+                    <p class="payment-note">Nous vous contacterons pour établir un devis personnalisé.</p>
+                    <button class="btn-contact-devis">
+                        <i class="fas fa-envelope"></i>
+                        Demander un devis
+                    </button>
+                </div>
+            `;
+        } else {
+            // Panier vide ou produits non reconnus
+            buttonsHTML = `
+                <div class="payment-option">
+                    <p class="payment-note">Aucun produit valide dans le panier.</p>
+                </div>
+            `;
+        }
+
+        dynamicButtons.innerHTML = buttonsHTML;
+
+        // Réinitialiser les boutons PayPal si nécessaire
+        if (typeof paypal !== 'undefined') {
+            setTimeout(() => {
+                if (hasSiteHebergement) {
+                    paypal.HostedButtons({
+                        hostedButtonId: "3HFFE75LH2LBS",
+                    }).render("#paypal-buttons-container");
+                } else if (hasSiteVitrine) {
+                    paypal.HostedButtons({
+                        hostedButtonId: "TWF4DWMJETCMS",
+                    }).render("#paypal-container-TWF4DWMJETCMS");
+                }
+            }, 100);
+        }
+    }
+
+    // ===== Message de confirmation après paiement =====
+    function showSuccessMessage() {
+        const successMessage = document.createElement('div');
+        successMessage.className = 'payment-success-message';
+        successMessage.innerHTML = `
+            <div class="success-content">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>✅ Merci !</h3>
+                <p>Votre commande a bien été enregistrée.</p>
+                <p>Nous vous recontacterons sous peu pour finaliser votre projet.</p>
+                <div class="success-details">
+                    <p><strong>Prochaines étapes :</strong></p>
+                    <ul>
+                        <li>Vous recevrez un email de confirmation</li>
+                        <li>Nous vous contacterons dans les 24h</li>
+                        <li>Nous commencerons votre projet</li>
+                    </ul>
+                </div>
+            </div>
+        `;
+        
+        // Styles pour le message de succès
+        successMessage.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        `;
+        
+        const successContent = successMessage.querySelector('.success-content');
+        successContent.style.cssText = `
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            margin: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            animation: slideInUp 0.5s ease;
+        `;
+        
+        const successIcon = successMessage.querySelector('.success-icon');
+        successIcon.style.cssText = `
+            font-size: 60px;
+            color: #00ff88;
+            margin-bottom: 20px;
+            animation: bounce 1s ease;
+        `;
+        
+        const successTitle = successMessage.querySelector('h3');
+        successTitle.style.cssText = `
+            color: #ffffff;
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        `;
+        
+        const successText = successMessage.querySelectorAll('p');
+        successText.forEach(p => {
+            p.style.cssText = `
+                color: #c0c8d8;
+                font-size: 16px;
+                margin-bottom: 10px;
+                line-height: 1.5;
+            `;
+        });
+        
+        const successDetails = successMessage.querySelector('.success-details');
+        successDetails.style.cssText = `
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+        `;
+        
+        const successList = successMessage.querySelector('ul');
+        successList.style.cssText = `
+            text-align: left;
+            color: #c0c8d8;
+            margin-top: 10px;
+        `;
+        
+        const successListItems = successMessage.querySelectorAll('li');
+        successListItems.forEach(li => {
+            li.style.cssText = `
+                margin-bottom: 8px;
+                padding-left: 20px;
+                position: relative;
+            `;
+            li.innerHTML = `<i class="fas fa-arrow-right" style="position: absolute; left: 0; color: #00ff88; font-size: 12px;"></i>${li.textContent}`;
+        });
+        
+        document.body.appendChild(successMessage);
+        
+        // Ajouter les animations CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% {
+                    transform: translateY(0);
+                }
+                40% {
+                    transform: translateY(-10px);
+                }
+                60% {
+                    transform: translateY(-5px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Supprimer le message après 5 secondes
+        setTimeout(() => {
+            successMessage.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => {
+                if (successMessage.parentNode) {
+                    document.body.removeChild(successMessage);
+                }
+            }, 300);
+        }, 5000);
     }
 })();
 
@@ -1768,7 +2433,6 @@ window.OstiroNetwork = {
     createStarField,
     createParticleBurst,
     initSpaceTravelEffect,
-    initFAQAccordion,
     initHeroCarousel,
     initAboutCarousel
 };
@@ -1777,27 +2441,4 @@ window.OstiroNetwork = {
 // FAQ ACCORDION FUNCTIONALITY
 // ========================================
 
-function initFAQAccordion() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        
-        question.addEventListener('click', () => {
-            // Fermer tous les autres items
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            
-            // Toggle l'item actuel
-            item.classList.toggle('active');
-        });
-    });
-}
-
-// Initialiser l'accordéon FAQ
-document.addEventListener('DOMContentLoaded', () => {
-    initFAQAccordion();
-});
+// L'accordéon FAQ est déjà initialisé dans la section FAQ Accordion amélioré ci-dessus

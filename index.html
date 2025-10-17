@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ostiro Network</title>
     <meta name="description" content="Ostiro Network : Création de sites web vitrine qui convertissent. SEO avancé, copywriting persuasif, design moderne. Résultats garantis en 30 jours. Audit gratuit.">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://ostiro-network.com/">
     <meta property="og:title" content="Ostiro Network - Sites Web qui Convertissent">
     <meta property="og:description" content="Création de sites web vitrine optimisés pour la conversion. SEO avancé, copywriting persuasif, design moderne. Résultats garantis en 30 jours.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ostiro-network.com">
-    <meta property="og:image" content="https://ostiro-network.com/images/Image1.jpg">
+    <meta property="og:image" content="https://ostiro-network.com/images/Image1.webp">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ostiro Network - Sites Web qui Convertissent">
     <meta name="twitter:description" content="Création de sites web vitrine optimisés pour la conversion. SEO avancé, copywriting persuasif, design moderne.">
-    <meta name="twitter:image" content="https://ostiro-network.com/images/Image1.jpg">
+    <meta name="twitter:image" content="https://ostiro-network.com/images/Image1.webp">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='rocketGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23c0c8d8;stop-opacity:1' /><stop offset='100%' style='stop-color:%236c7b95;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='48' fill='%230f0f23' stroke='%23c0c8d8' stroke-width='2'/><path d='M50 20 L35 65 L50 75 L65 65 Z' fill='url(%23rocketGrad)'/><circle cx='50' cy='45' r='8' fill='%23ffffff'/><path d='M35 65 L25 70 M65 65 L75 70' stroke='%23c0c8d8' stroke-width='3' stroke-linecap='round'/><path d='M42 75 L50 85 L58 75' fill='%23a0a8b8'/></svg>">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -22,6 +24,117 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </noscript>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://ostiro-network.com/"}
+      ]
+    }
+    </script>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: 'Accueil - Ostiro Network',
+            page_location: window.location.href,
+            custom_map: {
+                'custom_parameter_1': 'page_type',
+                'custom_parameter_2': 'user_journey'
+            }
+        });
+    </script>
+    
+    <!-- Core Web Vitals Monitoring -->
+    <script>
+        // Core Web Vitals monitoring
+        function sendToAnalytics({name, delta, value, id}) {
+            gtag('event', name, {
+                event_category: 'Web Vitals',
+                event_label: id,
+                value: Math.round(name === 'CLS' ? delta * 1000 : delta),
+                non_interaction: true,
+            });
+        }
+        
+        // LCP (Largest Contentful Paint)
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                sendToAnalytics({
+                    name: 'LCP',
+                    delta: entry.startTime,
+                    value: entry.startTime,
+                    id: entry.id
+                });
+            }
+        }).observe({entryTypes: ['largest-contentful-paint']});
+        
+        // FID (First Input Delay)
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                sendToAnalytics({
+                    name: 'FID',
+                    delta: entry.processingStart - entry.startTime,
+                    value: entry.processingStart - entry.startTime,
+                    id: entry.id
+                });
+            }
+        }).observe({entryTypes: ['first-input']});
+        
+        // CLS (Cumulative Layout Shift)
+        let clsValue = 0;
+        new PerformanceObserver((entryList) => {
+            for (const entry of entryList.getEntries()) {
+                if (!entry.hadRecentInput) {
+                    clsValue += entry.value;
+                }
+            }
+            sendToAnalytics({
+                name: 'CLS',
+                delta: clsValue,
+                value: clsValue,
+                id: 'cls-tracking'
+            });
+        }).observe({entryTypes: ['layout-shift']});
+    </script>
+    
+    <!-- PageSpeed Insights API Integration -->
+    <script>
+        // PageSpeed monitoring (à configurer avec ton API key)
+        function checkPageSpeed() {
+            const url = window.location.href;
+            const apiKey = 'YOUR_PAGESPEED_API_KEY'; // À remplacer par ta clé API
+            
+            fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&key=${apiKey}&category=performance&category=accessibility&category=best-practices&category=seo`)
+                .then(response => response.json())
+                .then(data => {
+                    const performance = data.lighthouseResult.categories.performance.score * 100;
+                    const accessibility = data.lighthouseResult.categories.accessibility.score * 100;
+                    const bestPractices = data.lighthouseResult.categories['best-practices'].score * 100;
+                    const seo = data.lighthouseResult.categories.seo.score * 100;
+                    
+                    // Envoyer les données à Google Analytics
+                    gtag('event', 'pagespeed_score', {
+                        event_category: 'Performance',
+                        performance_score: Math.round(performance),
+                        accessibility_score: Math.round(accessibility),
+                        best_practices_score: Math.round(bestPractices),
+                        seo_score: Math.round(seo)
+                    });
+                })
+                .catch(error => console.log('PageSpeed API error:', error));
+        }
+        
+        // Vérifier PageSpeed après chargement complet
+        window.addEventListener('load', () => {
+            setTimeout(checkPageSpeed, 2000);
+        });
+    </script>
 </head>
 <body>
     <!-- Navigation Futuriste -->
@@ -129,19 +242,19 @@
                     <div class="hero-carousel-container">
                         <div class="hero-carousel">
                             <div class="carousel-slide active">
-                                <img src="images/Image5.jpg" alt="Hero 1" class="carousel-image" loading="eager">
+                                <img src="images/Image5.webp" alt="Hero 1" class="carousel-image" loading="eager">
                             </div>
                             <div class="carousel-slide">
-                                <img src="images/Image4.jpg" alt="Hero 4" class="carousel-image" loading="lazy">
+                                <img src="images/Image4.webp" alt="Hero 4" class="carousel-image" loading="lazy">
                             </div>
                             <div class="carousel-slide">
-                                <img src="images/Images2.jpg" alt="Hero 5" class="carousel-image" loading="lazy">
+                                <img src="images/Images2.webp" alt="Hero 5" class="carousel-image" loading="lazy">
                             </div>
                             <div class="carousel-slide">
-                                <img src="images/Images1.jpg" alt="Hero 6" class="carousel-image" loading="lazy">
+                                <img src="images/Images1.webp" alt="Hero 6" class="carousel-image" loading="lazy">
                             </div>
                             <div class="carousel-slide">
-                                <img src="images/Image1.jpg" alt="Hero 7" class="carousel-image" loading="lazy">
+                                <img src="images/Image1.webp" alt="Hero 7" class="carousel-image" loading="lazy">
                             </div>
                         </div>
                         <!-- Carousel Navigation avec flèches -->
@@ -214,7 +327,7 @@
                     <p class="problem-description-exceptional">Même avec du trafic, vos pages ne transforment pas les visiteurs en clients</p>
                     <div class="problem-image-exceptional">
                         <!-- 0003: Image problème 3 - Graphiques de conversion en chute libre (conversion faible) -->
-                        <img src="images/Images1.jpg" alt="Graphiques de conversion en chute libre" class="focus-on-hover">
+                        <img src="images/Images1.webp" alt="Graphiques de conversion en chute libre" class="focus-on-hover">
                     </div>
                 </div>
             </div>
@@ -245,7 +358,7 @@
                     <p class="solution-card-description">Pages rédigées pour parler à vos clients et déclencher l'action (prise de contact, achat...)</p>
                     <div class="solution-image-exceptional">
                         <!-- 0004: Image solution 1 - Rédaction persuasive et conversion (copywriting persuasif) -->
-                        <img src="images/Image3.jpg" alt="Rédaction persuasive et conversion">
+                        <img src="images/Image3.webp" alt="Rédaction persuasive et conversion">
                     </div>
                 </div>
                 
@@ -269,7 +382,7 @@
                     <p class="solution-card-description">Optimisation technique et éditoriale poussée dès la mise en ligne, pour vous positionner rapidement dans Google</p>
                     <div class="solution-image-exceptional">
                         <!-- 0006: Image solution 3 - SEO et optimisation Google (SEO avancé) -->
-                        <img src="images/Images7.jpg" alt="SEO et optimisation Google">
+                        <img src="images/Images7.webp" alt="SEO et optimisation Google">
                     </div>
                 </div>
             </div>
@@ -390,7 +503,7 @@
         "name": "Ostiro Network",
         "description": "Création de sites web vitrine optimisés pour la conversion. SEO avancé, copywriting persuasif, design moderne.",
         "url": "https://ostiro-network.com",
-        "logo": "https://ostiro-network.com/images/Image1.jpg",
+        "logo": "https://ostiro-network.com/images/Image1.webp",
         "contactPoint": {
             "@type": "ContactPoint",
             "telephone": "+33-7-66-20-95-01",
@@ -453,21 +566,29 @@
                     <h5>Votre projet</h5>
                     <div class="cart-form-grid">
                         <input type="text" name="company" placeholder="Entreprise">
-                        <textarea name="message" placeholder="Décrivez votre projet..." rows="3"></textarea>
+                        <textarea name="request" placeholder="Décrivez votre projet..." rows="3" required></textarea>
                     </div>
+                </div>
+                
+                <!-- Bouton de validation du formulaire -->
+                <div class="form-section">
+                    <button type="button" id="validateFormBtn" class="btn-validate-form">
+                        <i class="fas fa-check"></i>
+                        Valider mes informations
+                    </button>
                 </div>
             </form>
             
-            <!-- Paiement PayPal -->
-            <div class="paypal-section">
-                <div class="paypal-option">
-                    <h5>Site Vitrine + Hébergement (500€)</h5>
-                    <div id="paypal-buttons-container"></div>
-                </div>
+            <!-- Options de paiement dynamiques (cachées par défaut) -->
+            <div class="payment-options-section" id="paymentOptionsSection" style="display: none;">
+                <h4>
+                    <i class="fas fa-credit-card"></i>
+                    Mode de paiement
+                </h4>
                 
-                <div class="paypal-option">
-                    <h5>Site Vitrine sans Hébergement (400€)</h5>
-                    <div id="paypal-container-TWF4DWMJETCMS"></div>
+                <div class="payment-methods">
+                    <!-- Boutons de paiement dynamiques selon le panier -->
+                    <div id="dynamicPaymentButtons"></div>
                 </div>
             </div>
         </div>
