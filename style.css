@@ -306,40 +306,178 @@ main {
 
 /* Footer Info */
 /* Footer Info */
-.footer-info {
-    font-size: 0.85rem;
-    color: var(--text-color);
-    font-weight: 700;
+/* --- Footer (Tekiyo Style) --- */
+.site-footer {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px 20px;
-    border-radius: 50px;
-    backdrop-filter: blur(5px);
-    margin-top: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.5);
+    background: transparent;
 }
 
-.footer-info a {
-    color: var(--text-color);
+.site-footer a {
+    color: rgba(0, 0, 0, 0.5);
     text-decoration: none;
-    transition: all 0.2s ease;
-    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease;
 }
 
-.footer-info a:hover {
-    color: var(--accent-blue);
-    border-bottom-color: var(--accent-blue);
-    transform: translateY(-1px);
+.site-footer a:hover {
+    color: black;
 }
 
-.separator {
-    color: var(--accent-pink);
-    font-weight: 900;
-    font-size: 1.2em;
+.footer-left,
+.footer-right {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.footer-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dot {
+    font-weight: bold;
+}
+
+/* Mobile Footer adjustments */
+@media (max-width: 768px) {
+    .site-footer {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .footer-center {
+        position: static;
+        transform: none;
+    }
+
+    .footer-left,
+    .footer-right {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* Move CTA a bit up on mobile to avoid overlap */
+    .floating-cta {
+        margin-bottom: 2rem;
+    }
+}
+
+/* --- Legal Modal (Liquid Glass) --- */
+.legal-trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.legal-trigger:hover {
+    color: black;
+}
+
+.legal-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(0px);
+    /* Transition to blur */
+}
+
+.legal-modal.active {
+    pointer-events: all;
+    opacity: 1;
+    backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.05);
+    /* Slight tint */
+}
+
+.legal-glass-card {
+    width: 90%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+
+    font-family: 'Courier New', monospace;
+    /* Tech/Legal monospace vibe */
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #333;
+
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.legal-modal.active .legal-glass-card {
+    transform: scale(1) translateY(0);
+}
+
+.legal-header,
+.legal-footer-note {
+    opacity: 0.7;
+}
+
+.legal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.section-title {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    color: #000;
+}
+
+.legal-glass-card a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.legal-glass-card a:hover {
+    border-bottom-color: black;
 }
 
 /* Mobile */

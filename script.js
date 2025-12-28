@@ -90,6 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const moon = document.querySelector('.glow-orb.moon');
         const secondary = document.querySelector('.glow-orb.secondary');
 
+        // Note: moon/secondary elements might not exist in this simpler version, 
+        // but keeping logic safe if they are added back.
         if (moon) {
             moon.style.transform = `translate(-50%, -50%) translate(${x * 20}px, ${y * 20}px)`;
         }
@@ -97,4 +99,33 @@ document.addEventListener('DOMContentLoaded', () => {
             secondary.style.transform = `translate(${x * -30}px, ${y * -30}px)`;
         }
     });
+
+    // --- Legal Modal Logic ---
+    const legalBtn = document.getElementById('legal-btn');
+    const legalModal = document.getElementById('legal-modal');
+
+    // Open
+    if (legalBtn && legalModal) {
+        legalBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // prevent navigation behavior if it was a link
+            legalModal.classList.add('active');
+        });
+    }
+
+    // Close on click outside
+    if (legalModal) {
+        legalModal.addEventListener('click', (e) => {
+            if (e.target === legalModal) {
+                legalModal.classList.remove('active');
+            }
+        });
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && legalModal && legalModal.classList.contains('active')) {
+            legalModal.classList.remove('active');
+        }
+    });
+
 });
