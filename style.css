@@ -1,0 +1,382 @@
+:root {
+    --bg-color: #F4F4F5;
+    /* Off-white tech background */
+    --text-color: #000000;
+    --accent-blue: #2563EB;
+    --accent-purple: #7C3AED;
+    --accent-pink: #EC4899;
+    --font-main: 'Outfit', sans-serif;
+    --font-mono: 'Courier New', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+
+    /* Subtle dot grid pattern */
+    background-image: radial-gradient(#D4D4D8 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* --- Creative Background Elements --- */
+.creative-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    perspective: 1000px;
+}
+
+/* Common Geo Shapes */
+.geo-shape {
+    position: absolute;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* 1. 3D Cube (Abstract Representation) */
+.cube-3d {
+    top: 15%;
+    left: 10%;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--accent-blue), #60A5FA);
+    transform: rotate3d(1, 1, 1, 45deg);
+    box-shadow: 10px 10px 20px rgba(37, 99, 235, 0.2);
+    border-radius: 12px;
+}
+
+/* 2. Gradient Orb (Soft Element) */
+.circle-gradient {
+    bottom: 20%;
+    right: 15%;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 30% 30%, var(--accent-pink), transparent);
+    background-color: rgba(236, 72, 153, 0.1);
+    border: 2px solid rgba(236, 72, 153, 0.3);
+    border-radius: 50%;
+    animation-delay: 1s;
+}
+
+/* 3. Code Brackets (The "Coding" Aspect) */
+.code-bracket-left,
+.code-bracket-right {
+    font-family: var(--font-mono);
+    font-size: 12rem;
+    color: rgba(0, 0, 0, 0.03);
+    font-weight: 900;
+}
+
+.code-bracket-left {
+    top: 40%;
+    left: 5%;
+    transform: translateY(-50%);
+}
+
+.code-bracket-right {
+    top: 40%;
+    right: 5%;
+    transform: translateY(-50%);
+}
+
+/* 4. Accent Pill */
+.pill-accent {
+    top: 20%;
+    right: 25%;
+    width: 60px;
+    height: 20px;
+    background-color: var(--accent-purple);
+    border-radius: 50px;
+    transform: rotate(-15deg);
+    animation-duration: 8s;
+}
+
+/* 5. Floating UI (Window) */
+.floating-ui {
+    bottom: 25%;
+    left: 20%;
+    width: 140px;
+    height: 90px;
+    background: white;
+    border: 1px solid #E4E4E7;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 6px;
+    transform: rotate(5deg);
+    animation-delay: 2s;
+}
+
+.ui-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.ui-dot.red {
+    background: #EF4444;
+}
+
+.ui-dot.yellow {
+    background: #F59E0B;
+}
+
+.ui-dot.green {
+    background: #10B981;
+}
+
+/* 6. Squiggle */
+.squiggle {
+    top: 60%;
+    right: 35%;
+    width: 80px;
+    height: 20px;
+    color: var(--accent-blue);
+    transform: rotate(10deg);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(var(--r, 0deg));
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(var(--r, 0deg));
+    }
+}
+
+/* --- UI Layers --- */
+
+/* Header */
+header {
+    position: relative;
+    z-index: 10;
+    padding: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    color: black;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo a:hover {
+    transform: scale(1.1) rotate(-10deg);
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: black;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    transition: all 0.2s ease;
+}
+
+.social-links a:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+    color: var(--accent-blue);
+}
+
+/* Main Content */
+main {
+    position: relative;
+    z-index: 5;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-text {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    /* Bold and solid */
+    text-align: center;
+    line-height: 1.1;
+    color: black;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3em;
+    max-width: 900px;
+}
+
+/* Snappy Animation for Tech Feel */
+.word {
+    display: inline-flex;
+}
+
+.char {
+    opacity: 0;
+    transform: translateY(30px) rotate(5deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy back */
+    display: inline-block;
+}
+
+.char.visible {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+}
+
+.char.out {
+    opacity: 0;
+    transform: translateY(-30px) rotate(-5deg);
+    transition: all 0.3s ease-in;
+}
+
+/* --- Modern Tech CTA --- */
+.floating-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 5vh;
+    z-index: 10;
+}
+
+.cta-button {
+    background-color: black;
+    color: white;
+    padding: 16px 40px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+}
+
+.cta-button:hover {
+    transform: translateY(-4px) scale(1.05);
+    /* Pop effect */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    background-color: var(--accent-blue);
+    /* Color change on hover */
+}
+
+.cta-text {
+    display: inline-block;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.cta-text.changing {
+    transform: scale(0.9);
+    opacity: 0;
+}
+
+/* Footer Info */
+/* Footer Info */
+.footer-info {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px 20px;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    margin-top: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.footer-info a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.footer-info a:hover {
+    color: var(--accent-blue);
+    border-bottom-color: var(--accent-blue);
+    transform: translateY(-1px);
+}
+
+.separator {
+    color: var(--accent-pink);
+    font-weight: 900;
+    font-size: 1.2em;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .cube-3d {
+        width: 50px;
+        height: 50px;
+    }
+
+    .floating-ui {
+        width: 100px;
+        height: 60px;
+    }
+
+    .hero-text {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .code-bracket-left,
+    .code-bracket-right {
+        display: none;
+    }
+}
+
+/* Animation Utilities */
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
