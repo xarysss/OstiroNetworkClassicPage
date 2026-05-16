@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ostiro Labs — ColorExtractor</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../style.css">
+    
+    <!-- Lottie Player -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <style>
+        .feature-hero-text h1 span { color: var(--accent-pink); }
+        .feature-section h2 i { color: var(--accent-pink); }
+        .feature-grid-item i { color: var(--accent-pink); }
+        .btn-use { background: #111827; }
+        .btn-use:hover { background: var(--accent-pink); box-shadow: 0 12px 25px rgba(236,72,153,0.3); }
+        
+        .color-palette-demo {
+            display: flex; gap: 10px; margin-top: 1rem;
+        }
+        .color-dot { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        /* Premium Symbolism Styles */
+        .premium-symbolism-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        .symbolism-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 35px;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .symbolism-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .symbolism-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            background: rgba(255, 255, 255, 0.7);
+            border-color: var(--accent-pink);
+            box-shadow: 0 25px 50px rgba(236, 72, 153, 0.1);
+        }
+        .color-orb {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: orbFloat 5s ease-in-out infinite;
+        }
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        .symbolism-card h4 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #111827;
+            letter-spacing: -0.02em;
+        }
+        .symbolism-card p {
+            font-size: 1rem;
+            color: #4B5563;
+            line-height: 1.6;
+        }
+        .symbolism-card p strong {
+            color: var(--accent-pink);
+        }
+    </style>
+</head>
+<body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress-container">
+        <div class="reading-progress-bar" id="reading-progress-bar" style="background: var(--accent-pink);"></div>
+    </div>
+
+    <!-- Background Creative Elements -->
+    <div class="creative-background">
+        <div class="geo-shape cube-3d" aria-hidden="true" style="background: linear-gradient(135deg, var(--accent-pink), #f472b6);"></div>
+        <div class="geo-shape circle-gradient" aria-hidden="true"></div>
+        <div class="geo-shape pill-accent" aria-hidden="true" style="background: var(--accent-pink);"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="../index.html" aria-label="Accueil"><i class="fas fa-rocket"></i></a>
+        </div>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/titouan-mouysset" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://twitter.com/chocolatxaris" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/titouanmyt" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </header>
+
+    <main class="feature-page-main">
+        <!-- Hero Section -->
+        <section class="feature-hero">
+            <div class="feature-hero-text">
+                <h1><span>Color</span>Extractor</h1>
+                <p>Comprenez la direction artistique d'un site web en extrayant instantanément ses palettes de couleurs, nuances primaires, secondaires et couleurs d'accentuation.</p>
+                <div class="card-actions">
+                    <a href="../../ColorExtractor/frontend/index.html" class="btn-use" target="_blank">Lancer l'outil</a>
+                    <a href="../tools.html" class="btn-more"><i class="fas fa-arrow-left"></i> Retour</a>
+                </div>
+                <div class="color-palette-demo">
+                    <div class="color-dot" style="background: #2563EB;"></div>
+                    <div class="color-dot" style="background: #7C3AED;"></div>
+                    <div class="color-dot" style="background: #EC4899;"></div>
+                    <div class="color-dot" style="background: #F59E0B;"></div>
+                    <div class="color-dot" style="background: #10B981;"></div>
+                </div>
+            </div>
+            <div class="feature-hero-animation">
+                <svg viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:480px; filter: drop-shadow(0 20px 40px rgba(236,72,153,0.12));">
+                  <!-- Desk -->
+                  <rect x="80" y="200" width="260" height="14" rx="6" fill="#EC4899" opacity="0.2"/>
+                  <rect x="110" y="213" width="10" height="60" rx="4" fill="#EC4899" opacity="0.15"/>
+                  <rect x="300" y="213" width="10" height="60" rx="4" fill="#EC4899" opacity="0.15"/>
+                  <!-- Monitor -->
+                  <rect x="130" y="90" width="160" height="115" rx="10" fill="#1E1B4B"/>
+                  <rect x="138" y="98" width="144" height="97" rx="6" fill="#312E81"/>
+                  <!-- Color palette on screen -->
+                  <rect x="148" y="108" width="24" height="24" rx="4" fill="#2563EB"/>
+                  <rect x="178" y="108" width="24" height="24" rx="4" fill="#EC4899"/>
+                  <rect x="208" y="108" width="24" height="24" rx="4" fill="#7C3AED"/>
+                  <rect x="238" y="108" width="24" height="24" rx="4" fill="#F59E0B"/>
+                  <rect x="148" y="138" width="24" height="24" rx="4" fill="#10B981"/>
+                  <rect x="178" y="138" width="24" height="24" rx="4" fill="#EF4444"/>
+                  <rect x="208" y="138" width="44" height="8" rx="3" fill="白" opacity="0.3"/>
+                  <rect x="208" y="150" width="34" height="8" rx="3" fill="white" opacity="0.2"/>
+                  <!-- Monitor stand -->
+                  <rect x="195" y="205" width="30" height="10" rx="3" fill="#EC4899" opacity="0.3"/>
+                  <rect x="200" y="215" width="20" height="18" rx="3" fill="#EC4899" opacity="0.25"/>
+                  <!-- Person chair -->
+                  <ellipse cx="100" cy="280" rx="30" ry="8" fill="#2563EB" opacity="0.15"/>
+                  <rect x="85" y="220" width="30" height="60" rx="10" fill="#2563EB" opacity="0.3"/>
+                  <!-- Person body -->
+                  <ellipse cx="100" cy="175" rx="18" ry="22" fill="#1E40AF"/>
+                  <!-- Head -->
+                  <circle cx="100" cy="148" r="16" fill="#FDE68A"/>
+                  <!-- Hair -->
+                  <path d="M86 142 Q100 128 114 142" fill="#1E1B4B"/>
+                  <!-- Glasses -->
+                  <rect x="92" y="148" width="8" height="5" rx="2" fill="none" stroke="#1E1B4B" stroke-width="1.5"/>
+                  <rect x="103" y="148" width="8" height="5" rx="2" fill="none" stroke="#1E1B4B" stroke-width="1.5"/>
+                  <line x1="100" y1="150" x2="103" y2="150" stroke="#1E1B4B" stroke-width="1"/>
+                  <!-- Arm / hand on palette -->
+                  <path d="M115 185 Q130 195 140 192" stroke="#FDE68A" stroke-width="6" stroke-linecap="round" fill="none"/>
+                  <!-- Floating color tags -->
+                  <g style="animation: float1 3s ease-in-out infinite;">
+                    <rect x="290" y="80" width="70" height="26" rx="8" fill="#2563EB"/>
+                    <text x="325" y="97" font-size="11" fill="white" text-anchor="middle" font-weight="700" font-family="'Outfit',sans-serif">HEX</text>
+                  </g>
+                  <g style="animation: float2 3.5s ease-in-out infinite;">
+                    <rect x="300" y="130" width="70" height="26" rx="8" fill="#EC4899"/>
+                    <text x="335" y="147" font-size="11" fill="white" text-anchor="middle" font-weight="700" font-family="'Outfit',sans-serif">RGB</text>
+                  </g>
+                  <g style="animation: float1 2.8s ease-in-out infinite 0.5s;">
+                    <rect x="40" y="110" width="70" height="26" rx="8" fill="#7C3AED"/>
+                    <text x="75" y="127" font-size="11" fill="white" text-anchor="middle" font-weight="700" font-family="'Outfit',sans-serif">CSS</text>
+                  </g>
+                  <g style="animation: float2 4s ease-in-out infinite 1s;">
+                    <rect x="30" y="160" width="70" height="26" rx="8" fill="#F59E0B"/>
+                    <text x="65" y="177" font-size="11" fill="white" text-anchor="middle" font-weight="700" font-family="'Outfit',sans-serif">HSL</text>
+                  </g>
+                </svg>
+                <style>
+                  @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+                  @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+                </style>
+            </div>
+        </section>
+        
+        <!-- Pourquoi c'est important -->
+        <section class="feature-section observe-scroll">
+            <h2><i class="fas fa-paint-brush"></i> Pourquoi utiliser cet outil ?</h2>
+            <div class="feature-grid">
+                <div class="feature-grid-item">
+                    <i class="fas fa-eye"></i>
+                    <h4>Direction Artistique</h4>
+                    <p>Décodez instantanément la stratégie visuelle d'une marque. Comprenez pourquoi le design fonctionne émotionnellement.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-clone"></i>
+                    <h4>Cohérence Visuelle</h4>
+                    <p>En reproduisant des palettes harmonieuses, vous garantissez un design premium sans mélanger des tons incompatibles.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h4>Tonalités Précises</h4>
+                    <p>Ne perdez plus de temps avec une pipette. Récupérez le code exact HEX ou RGB des couleurs primaires et d'accentuation (CTA, alertes, succès).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comment ça marche -->
+        <section class="feature-section observe-scroll">
+            <h2><i class="fas fa-layer-group"></i> Comment ça fonctionne ?</h2>
+            <div class="feature-grid">
+                <div class="feature-grid-item">
+                    <i class="fas fa-link"></i>
+                    <h4>1. Fournissez l'URL</h4>
+                    <p>Saisissez le lien du site cible dans notre outil ; c'est aussi simple que cela.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-magic"></i>
+                    <h4>2. Scan Intelligemment</h4>
+                    <p>L'algorithme explore le CSS et les attributs racines de la page pour extraire les nuances de couleurs réellement appliquées en design system.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-swatchbook"></i>
+                    <h4>3. Visualisez & Copiez</h4>
+                    <p>Un tableau de bord esthétique génère un nuancier interactif. Un simple clic vous permet de copier le code HEX prêt à être utilisé dans Figma ou dans votre CSS.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cas d'usage -->
+        <section class="feature-section observe-scroll">
+            <h2><i class="fas fa-laptop-code"></i> Créateurs et Agences</h2>
+            <div class="feature-grid">
+                <div class="feature-grid-item">
+                    <i class="fas fa-pen-nib"></i>
+                    <h4>Designers UX/UI</h4>
+                    <p>Pour construire vos moodboards et "volez comme un artiste" en analysant les combinaisons de couleurs des acteurs majeurs du marché.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-code"></i>
+                    <h4>Développeurs Web</h4>
+                    <p>Pour lier rapidement des palettes CSS standardisées aux variables de votre thème sans chercher dans les dev-tools pendant des heures.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-bullseye"></i>
+                    <h4>Analyse Concurrentielle</h4>
+                    <p>Pour comparer la charte graphique des sites concurrents et créer une charte différente pour se démarquer efficacement.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Color Symbolism Premium Section -->
+        <section class="feature-section observe-scroll">
+            <h2 style="justify-content: center;"><i class="fas fa-magic"></i> Univers Chromatique</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 3rem; color: #4B5563;">Chaque teinte est une émotion. Maîtrisez le langage des couleurs pour captiver votre audience dès le premier regard.</p>
+            
+            <div class="premium-symbolism-grid">
+                <div class="symbolism-card observe-scroll">
+                    <div class="color-orb" style="background: linear-gradient(135deg, #2563EB, #60A5FA);">
+                        <i class="fas fa-dove"></i>
+                    </div>
+                    <h4>Liberté & Confiance</h4>
+                    <p>Idéal pour les <strong>réseaux sociaux</strong> et la communication. Évoque l'amitié, la loyauté et la sérénité.</p>
+                </div>
+
+                <div class="symbolism-card observe-scroll">
+                    <div class="color-orb" style="background: linear-gradient(135deg, #EF4444, #F87171);">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h4>Énergie & Passion</h4>
+                    <p>La couleur de l'<strong>urgence</strong> et du dynamisme. Parfait pour vos Call-to-Action les plus importants.</p>
+                </div>
+
+                <div class="symbolism-card observe-scroll">
+                    <div class="color-orb" style="background: linear-gradient(135deg, #10B981, #34D399);">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>Nature & Vitalité</h4>
+                    <p>Symbolise la <strong>croissance</strong> et l'harmonie. Indispensable pour les projets éco-responsables ou santé.</p>
+                </div>
+
+                <div class="symbolism-card observe-scroll">
+                    <div class="color-orb" style="background: linear-gradient(135deg, #7C3AED, #A78BFA);">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h4>Luxe & Imaginaire</h4>
+                    <p>Le ton de la <strong>créativité</strong> et du mystère. Apporte une touche d'élégance et de sagesse unique.</p>
+                </div>
+
+                <div class="symbolism-card observe-scroll">
+                    <div class="color-orb" style="background: linear-gradient(135deg, #F59E0B, #FBBF24);">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h4>Joie & Clarté</h4>
+                    <p>Représente l'<strong>optimisme</strong> et l'intelligence. Capte l'attention et diffuse une atmosphère chaleureuse.</p>
+                </div>
+
+                <div class="symbolism-card observe-scroll">
+                    <div class="color-orb" style="background: #111827;">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h4>Puissance & Sobriété</h4>
+                    <p>L'incarnation du <strong>prestige</strong> et de l'autorité. Un choix intemporel pour des marques de luxe.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Footer Section -->
+        <div style="text-align: center; margin-bottom: 5rem; z-index: 10; position: relative;">
+             <h2 style="font-size: 2.5rem; color: #111827; margin-bottom: 1.5rem; font-weight: 800;">Sublimez vos palettes !</h2>
+             <div class="card-actions" style="justify-content: center;">
+                <a href="../../ColorExtractor/frontend/index.html" class="btn-use" target="_blank" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 50px;">Lancer ColorExtractor dorénavant</a>
+             </div>
+        </div>
+    </main>
+
+    <!-- Floating Back Arrow (Left) -->
+    <div class="floating-arrow-left">
+        <a href="../tools.html" class="glass-arrow" aria-label="Retour aux outils">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-left"><span>© 2026 Ostiro Network</span></div>
+        <div class="footer-center"><a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></div>
+    </footer>
+
+    <!-- Scroll Animations Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Reading Progress Bar
+            window.addEventListener('scroll', () => {
+                const docElem = document.documentElement;
+                const winScroll = document.body.scrollTop || docElem.scrollTop;
+                const height = docElem.scrollHeight - docElem.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                const bar = document.getElementById('reading-progress-bar');
+                if (bar) bar.style.width = scrolled + '%';
+            });
+
+            // Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.observe-scroll').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

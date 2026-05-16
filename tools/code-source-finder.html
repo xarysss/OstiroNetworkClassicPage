@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ostiro Labs — CodeSourceFinder</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../style.css">
+    
+    <!-- Lottie Player -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <style>
+        .feature-hero-text h1 span { color: var(--accent-blue); }
+        .feature-section h2 i { color: var(--accent-blue); }
+        .feature-grid-item i { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress-container">
+        <div class="reading-progress-bar" id="reading-progress-bar"></div>
+    </div>
+
+    <!-- Background Creative Elements -->
+    <div class="creative-background">
+        <div class="geo-shape cube-3d" aria-hidden="true"></div>
+        <div class="geo-shape circle-gradient" aria-hidden="true"></div>
+        <div class="geo-shape code-bracket-left" aria-hidden="true">{</div>
+        <div class="geo-shape code-bracket-right" aria-hidden="true">}</div>
+        <div class="geo-shape pill-accent" aria-hidden="true"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="../index.html" aria-label="Accueil"><i class="fas fa-rocket"></i></a>
+        </div>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/titouan-mouysset" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://twitter.com/chocolatxaris" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/titouanmyt" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </header>
+
+    <main class="feature-page-main">
+        <!-- Hero Section -->
+        <section class="feature-hero">
+            <div class="feature-hero-text">
+                <h1><span>CodeSource</span>Finder</h1>
+                <p>Auditez, analysez et comprenez la structure de n'importe quel site web instantanément. Transformez chaque site en une d'apprentissage et d'inspiration pour vos propres projets.</p>
+                <div class="card-actions">
+                    <a href="../../CodeSourceFinder/frontend/index.html" class="btn-use" target="_blank">Lancer l'outil</a>
+                    <a href="../tools.html" class="btn-more"><i class="fas fa-arrow-left"></i> Retour</a>
+                </div>
+            </div>
+            <div class="feature-hero-animation">
+                <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_vnikrcia.json" background="transparent" speed="1" style="width: 100%; height: auto;" loop autoplay></lottie-player>
+            </div>
+        </section>
+        
+        <!-- Pourquoi c'est important -->
+        <section class="feature-section observe-scroll">
+            <h2><i class="fas fa-lightbulb"></i> Pourquoi c'est important ?</h2>
+            <div class="feature-grid">
+                <div class="feature-grid-item">
+                    <i class="fas fa-search-plus"></i>
+                    <h4>Architecture Transparente</h4>
+                    <p>Découvrez comment les meilleurs sites du marché structurent leur DOM HTML et CSS pour une expérience optimale.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Bonnes Pratiques</h4>
+                    <p>Identifiez les pratiques de codage standards, la sémantique utilisée et décelez rapidement les erreurs courantes d'intégration.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-rocket"></i>
+                    <h4>Audit Rapide</h4>
+                    <p>Gagnez un temps précieux lors des phases de benchmarking, et comprenez la technologie adverse sans même ouvrir les outils de développement complexes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comment ça marche -->
+        <section class="feature-section observe-scroll">
+            <h2><i class="fas fa-cogs"></i> Comment ça fonctionne ?</h2>
+            <div class="feature-grid">
+                <div class="feature-grid-item">
+                    <i class="fas fa-keyboard"></i>
+                    <h4>1. Entrez l'URL</h4>
+                    <p>Copiez simplement l'URL de votre choix et insérez-la dans la barre de recherche intuitive de l'outil.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-network-wired"></i>
+                    <h4>2. Analyse en Temps Réel</h4>
+                    <p>Notre scraper sécurisé récupère le HTML, extrait les dépendances, et formate le résultat de manière lisible pour les développeurs.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-code"></i>
+                    <h4>3. Exploitez le Code</h4>
+                    <p>Le code source s'affiche : parcourez, identifiez la hiérarchie et appropriez-vous les astuces techniques d'intégration.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cas d'usage -->
+        <section class="feature-section observe-scroll">
+            <h2><i class="fas fa-briefcase"></i> Cas d'usage idéaux</h2>
+            <div class="feature-grid">
+                <div class="feature-grid-item">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Développeurs Front-End</h4>
+                    <p>Pour s'inspirer des animations complexes ou d'une disposition CSS Grid innovante vue chez un concurrent.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h4>Analystes Techniques</h4>
+                    <p>Pour vérifier la présence de balises sémantiques strictes et évaluer la qualité du code (Clean Code) lors d'un audit.</p>
+                </div>
+                <div class="feature-grid-item">
+                    <i class="fas fa-building"></i>
+                    <h4>Agences Web</h4>
+                    <p>Pour préparer des maquettes et devis en s'appuyant sur des structures existantes solides et fonctionnelles.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Footer Section -->
+        <div style="text-align: center; margin-bottom: 5rem; z-index: 10; position: relative;">
+             <h2 style="font-size: 2.5rem; color: #111827; margin-bottom: 1.5rem; font-weight: 800;">Prêt à explorer ?</h2>
+             <div class="card-actions" style="justify-content: center;">
+                <a href="../../CodeSourceFinder/frontend/index.html" class="btn-use" target="_blank" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 50px;">Lancer CodeSourceFinder dorénavant</a>
+             </div>
+        </div>
+    </main>
+
+    <!-- Floating Back Arrow (Left) -->
+    <div class="floating-arrow-left">
+        <a href="../tools.html" class="glass-arrow" aria-label="Retour aux outils">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-left"><span>© 2026 Ostiro Network</span></div>
+        <div class="footer-center"><a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></div>
+    </footer>
+
+    <!-- Scroll Animations Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Reading Progress Bar
+            window.addEventListener('scroll', () => {
+                const docElem = document.documentElement;
+                const winScroll = document.body.scrollTop || docElem.scrollTop;
+                const height = docElem.scrollHeight - docElem.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                const bar = document.getElementById('reading-progress-bar');
+                if (bar) bar.style.width = scrolled + '%';
+            });
+
+            // Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.observe-scroll').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

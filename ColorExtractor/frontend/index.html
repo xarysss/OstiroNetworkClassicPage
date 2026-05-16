@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColorExtractor — Ostiro Network</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Courier+New&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Background Portfolio Ostiro -->
+    <div class="creative-background">
+        <div class="geo-shape cube-3d" aria-hidden="true"></div>
+        <div class="geo-shape circle-gradient" aria-hidden="true"></div>
+        <div class="geo-shape code-bracket-left" aria-hidden="true">{</div>
+        <div class="geo-shape code-bracket-right" aria-hidden="true">}</div>
+        <div class="geo-shape pill-accent" aria-hidden="true"></div>
+        <div class="geo-shape floating-ui" aria-hidden="true">
+            <div class="ui-dot red"></div>
+            <div class="ui-dot yellow"></div>
+            <div class="ui-dot green"></div>
+        </div>
+        <div class="geo-shape squiggle" aria-hidden="true">
+            <svg viewBox="0 0 100 20" fill="none">
+                <path d="M5 10C15 10 15 0 25 0C35 0 35 10 45 10C55 10 55 0 65 0C75 0 75 10 85 10C95 10 95 0 100 0" stroke="currentColor" stroke-width="4" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="../../OSTIRO-main/index.html" aria-label="Accueil"><i class="fas fa-rocket" aria-hidden="true"></i></a>
+        </div>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/titouan-mouysset" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="https://twitter.com/chocolatxaris" target="_blank" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+            <a href="https://www.instagram.com/titouanmyt" target="_blank" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <main class="app-layout">
+        
+        <h1 class="hero-text" style="margin-bottom: 1rem; text-align: center;">
+            <span class="word" style="display:inline-flex;">Color</span>
+            <span class="word" style="display:inline-flex;">Extractor.</span>
+        </h1>
+        <p style="text-align: center; margin-bottom: 3rem; font-size: 1.2rem; font-weight: 500;">Récupérez la palette parfaite.</p>
+
+        <div class="panels-container">
+            <!-- Left Panel: Controls & Screenshot (Glassmorphic) -->
+            <aside class="left-panel glass-panel">
+                <form id="analyze-form" class="scan-form">
+                    <div class="input-main">
+                        <input type="text" id="url-input" placeholder="https://ostiro-network.fr" required autocomplete="off" />
+                        <button type="submit" id="analyze-btn" class="extract-btn">Extract</button>
+                    </div>
+
+                    <div id="error-msg" class="error-msg hidden"></div>
+                </form>
+
+                <div class="screenshot-pane">
+                    <div id="loader" class="loader-overlay hidden">
+                        <div class="pulse-dot"></div>
+                        <p style="font-family:var(--font-mono); font-weight:bold; margin-top:10px;">En cours...</p>
+                    </div>
+
+                    <div id="screenshot-wrapper" class="hidden">
+                        <div class="browser-bar">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                        </div>
+                        <div class="screenshot-img-box">
+                            <img id="screenshot-img" src="" alt="Screenshot" style="cursor: crosshair;" />
+                        </div>
+                    </div>
+
+                    <div id="screenshot-placeholder" class="screenshot-placeholder">
+                        Aperçu généré ici
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Panel: Palettes -->
+            <section class="right-panel glass-panel">
+                
+                <div id="results-placeholder" class="empty-state">
+                    <i class="fas fa-palette empty-icon" style="font-size:3rem; margin-bottom:10px;"></i>
+                    <h2>Aucune palette chargée</h2>
+                </div>
+
+            <div id="results" class="results-layout hidden">
+                
+                <!-- Advanced Top Bar (Colorize.design style) -->
+                <div class="palette-top-bar">
+                    <h2 id="palette-title">Untitled Palette</h2>
+                    <div class="top-bar-actions">
+                        <button class="action-btn" id="edit-colors-btn"><i class="fas fa-pen"></i> Edit Colors</button>
+                        
+                        <div class="dropdown-wrapper">
+                            <button class="action-btn download-btn-main" id="dropdown-trigger">
+                                <i class="fas fa-download"></i> Download Palette
+                            </button>
+                            <div class="dropdown-menu hidden" id="download-dropdown">
+                                <button id="dl-css"><i class="fas fa-arrow-down"></i> CSS</button>
+                                <button id="dl-scss"><i class="fas fa-arrow-down"></i> SCSS</button>
+                                <button id="dl-json"><i class="fas fa-arrow-down"></i> JSON</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Pack -->
+                <div class="palette-block hidden" id="block-custom">
+                    <div class="block-header">
+                        <h3>Custom Colors</h3>
+                        <span class="badge">Picked</span>
+                    </div>
+                    <div class="palette-grid" id="grid-custom"></div>
+                </div>
+
+                <!-- Visual Pack -->
+                <div class="palette-block hidden" id="block-visual">
+                    <div class="block-header">
+                        <h3>Visual Palette Extraction</h3>
+                        <span class="badge" id="count-visual">0</span>
+                    </div>
+                    <p class="meta-sub">Couleurs extraites visuellement à partir du JPG généré.</p>
+                    <div class="palette-grid" id="grid-visual"></div>
+                </div>
+
+                <!-- Code Pack -->
+                <div class="palette-block hidden" id="block-code">
+                    <div class="block-header">
+                        <h3>Code Palette Extraction</h3>
+                        <span class="badge" id="count-code">0</span>
+                    </div>
+                    <p class="meta-sub">Couleurs exactes trouvées dans les feuilles de style (CSS, HTML).</p>
+                    <div class="palette-grid" id="grid-code"></div>
+                </div>
+            </div>
+
+        </section>
+        </div>
+
+        <div style="margin-top: 4rem; margin-bottom: 2rem; display: flex; justify-content: center; width: 100%;">
+            <a href="https://cal.com/ostiro-network/30min" target="_blank" class="cta-button">
+                <span class="cta-text">Démarrer un projet</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Eyedropper Tooltip -->
+    <div id="eyedropper-tooltip" class="color-card hidden" style="position:fixed; z-index:9999; pointer-events:none; width: 170px;">
+        <div class="color-swatch-wrap" style="height: 60px;">
+            <div id="eyedropper-swatch" class="swatch-fill" style="background-color: #fff"></div>
+            <svg class="wave-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="#ffffff" fill-opacity="1" d="M0,192L60,181.3C120,171,240,149,360,165.3C480,181,600,235,720,240C840,245,960,203,1080,186.7C1200,171,1320,181,1380,186.7L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+            </svg>
+        </div>
+        <div class="color-info" style="padding: 12px; display:flex; flex-direction:column; gap:8px;">
+            <div id="eyedropper-rgb" class="color-rgb" style="font-size: 0.9rem; margin:0;">rgb(255, 255, 255)</div>
+            <div style="font-size: 0.8rem; color: #6B7280; font-weight:600; display:flex; align-items:center; gap:5px;">
+                <i class="fas fa-mouse-pointer"></i> Click to sample
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Arrow (Liquid Glass) -->
+    <div class="floating-arrow-left">
+        <a href="../../OSTIRO-main/tools.html" class="glass-arrow" aria-label="Retour aux outils">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+    </div>
+
+    <!-- Legal Footer -->
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span>© 2026 Ostiro Network</span>
+            <span class="dot">·</span>
+            <span>Hébergé par GitHub</span>
+        </div>
+        <div class="footer-center">
+            <a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a>
+        </div>
+        <div class="footer-right">
+            <button id="legal-btn" class="legal-trigger">Legal</button>
+        </div>
+    </footer>
+
+    <!-- Liquid Glass Modal -->
+    <div id="legal-modal" class="legal-modal">
+        <div class="legal-glass-card">
+            <div class="legal-header">
+                <p>Ostiro Network · Marseillan, FR</p>
+                <p><a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></p>
+            </div>
+
+            <div class="legal-body">
+                <p class="section-title">DATA</p>
+                <p>Minimal collection (contact info only).</p>
+                <p>Never shared. Fully encrypted.</p>
+                <br>
+                <p>GDPR rights: access, deletion, portability.</p>
+                <p>Request: <a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></p>
+                <br>
+                <p>Controller: Ostiro Network</p>
+                <p>Host: GitHub Inc.</p>
+            </div>
+
+            <div class="legal-footer-note">
+                <p>All rights reserved © 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

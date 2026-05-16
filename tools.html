@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ostiro Network — Outils & Labs</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='rocketGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23c0c8d8;stop-opacity:1' /><stop offset='100%' style='stop-color:%23000000;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='48' fill='%23ffffff' stroke='%23000000' stroke-width='2'/><path d='M50 20 L35 65 L50 75 L65 65 Z' fill='url(%23rocketGrad)'/><circle cx='50' cy='45' r='8' fill='%23000000'/><path d='M35 65 L25 70 M65 65 L75 70' stroke='%23000000' stroke-width='3' stroke-linecap='round'/><path d='M42 75 L50 85 L58 75' fill='%23666666'/></svg>">
+    <meta name="description" content="Découvrez nos outils et labs créés par Ostiro Network.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background Creative Elements -->
+    <div class="creative-background">
+        <div class="geo-shape cube-3d" aria-hidden="true"></div>
+        <div class="geo-shape circle-gradient" aria-hidden="true"></div>
+        <div class="geo-shape code-bracket-left" aria-hidden="true">{</div>
+        <div class="geo-shape code-bracket-right" aria-hidden="true">}</div>
+        <div class="geo-shape pill-accent" aria-hidden="true"></div>
+        <div class="geo-shape floating-ui" aria-hidden="true">
+            <div class="ui-dot red"></div>
+            <div class="ui-dot yellow"></div>
+            <div class="ui-dot green"></div>
+        </div>
+        <div class="geo-shape squiggle" aria-hidden="true">
+            <svg viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 10C15 10 15 0 25 0C35 0 35 10 45 10C55 10 55 0 65 0C75 0 75 10 85 10C95 10 95 0 100 0"
+                    stroke="currentColor" stroke-width="4" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="index.html" aria-label="Accueil"><i class="fas fa-rocket" aria-hidden="true"></i></a>
+        </div>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/titouan-mouysset" target="_blank" aria-label="LinkedIn"><i
+                    class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="https://twitter.com/chocolatxaris" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"
+                    aria-hidden="true"></i></a>
+            <a href="https://www.instagram.com/titouanmyt" target="_blank" aria-label="Instagram"><i
+                    class="fab fa-instagram" aria-hidden="true"></i></a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main style="justify-content: flex-start; padding-top: 0;">
+        <h1 class="hero-title" style="margin-bottom: 2rem;">
+            <span class="word" aria-hidden="true">Ostiro</span>
+            <span class="word" aria-hidden="true">Labs.</span>
+        </h1>
+        
+        <div class="premium-tools-grid">
+            <!-- CodeSourceFinder Card -->
+            <div class="tool-premium-card">
+                <div class="card-icon" style="background: rgba(37,99,235,0.1); color: var(--accent-blue);">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>CodeSourceFinder</h3>
+                <p>Auditez, analysez et comprenez la structure de n'importe quel site web instantanément.</p>
+                <div class="card-actions">
+                    <a href="tools/code-source-finder.html" class="btn-more">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <a href="../CodeSourceFinder/frontend/index.html" class="btn-use" target="_blank">Lancer l'outil</a>
+                </div>
+            </div>
+
+            <!-- SEO Analyzer Card -->
+            <div class="tool-premium-card pro-card-premium">
+                <div class="pro-badge">Pro</div>
+                <div class="card-icon" style="background: rgba(82,82,91,0.1); color: #52525b;">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>SEO Analyzer</h3>
+                <p>Améliorez votre référencement, identifiez vos points faibles et maximisez votre visibilité.</p>
+                <div class="card-actions">
+                    <a href="tools/seo-analyzer.html" class="btn-more">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <a href="#" class="btn-use disabled" onclick="return false;">Bientôt disponible</a>
+                </div>
+            </div>
+
+            <!-- ColorExtractor Card -->
+            <div class="tool-premium-card">
+                <div class="card-icon" style="background: rgba(236,72,153,0.1); color: var(--accent-pink);">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>ColorExtractor</h3>
+                <p>Décortiquez l'identité visuelle d'un site en extrayant ses palettes dominantes et accents.</p>
+                <div class="card-actions">
+                    <a href="tools/color-extractor.html" class="btn-more">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <a href="../ColorExtractor/frontend/index.html" class="btn-use" target="_blank">Lancer l'outil</a>
+                </div>
+            </div>
+
+            <!-- Speed Test Card -->
+            <div class="tool-premium-card">
+                <div class="card-icon" style="background: rgba(245,158,11,0.1); color: #F59E0B;">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Speed Test</h3>
+                <p>Mesurez et optimisez le temps de chargement pour garantir une performance ultra-rapide.</p>
+                <div class="card-actions">
+                    <a href="tools/speed-test.html" class="btn-more">En savoir plus <i class="fas fa-arrow-right"></i></a>
+                    <a href="../SpeedTest/frontend/index.html" class="btn-use" target="_blank">Lancer l'outil</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.2rem; display: flex; justify-content: center; width: 100%; position: relative; z-index: 10;">
+            <a href="https://cal.com/ostiro-network/30min" target="_blank" class="cta-button">
+                <span class="cta-text">Démarrer un projet</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Floating Back Arrow (Left) -->
+    <div class="floating-arrow-left">
+        <a href="index.html" class="glass-arrow" aria-label="Retour à l'accueil">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+    </div>
+
+    <!-- Floating Forward Arrow (Right) -->
+    <div class="floating-arrow-right">
+        <a href="portfolio.html" class="glass-arrow" aria-label="Voir le portfolio">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+
+    <!-- Legal Footer (Tekiyo Style) -->
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span>© 2026 Ostiro Network</span>
+            <span class="dot">·</span>
+            <span>Hébergé par GitHub</span>
+        </div>
+        <div class="footer-center">
+            <a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a>
+        </div>
+        <div class="footer-right">
+            <button id="legal-btn" class="legal-trigger">Legal</button>
+        </div>
+    </footer>
+
+    <!-- Liquid Glass Modal -->
+    <div id="legal-modal" class="legal-modal">
+        <div class="legal-glass-card">
+            <div class="legal-header">
+                <p>Ostiro Network · Marseillan, FR</p>
+                <p><a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></p>
+            </div>
+
+            <div class="legal-body">
+                <p class="section-title">DATA</p>
+                <p>Minimal collection (contact info only).</p>
+                <p>Never shared. Fully encrypted.</p>
+                <br>
+                <p>GDPR rights: access, deletion, portability.</p>
+                <p>Request: <a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></p>
+                <br>
+                <p>Controller: Ostiro Network</p>
+                <p>Host: GitHub Inc.</p>
+            </div>
+
+            <div class="legal-footer-note">
+                <p>All rights reserved © 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reusing the script for animations and legal modal -->
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+    <!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ostiro Network — CodeSources Grabber</title>
+    <link rel="icon" href="https://ostiro-network.fr/favicon.ico">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Courier+New&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css?v=10">
+</head>
+
+<body>
+    <!-- Background Portfolio -->
+    <div class="creative-background">
+        <div class="geo-shape cube-3d" aria-hidden="true"></div>
+        <div class="geo-shape circle-gradient" aria-hidden="true"></div>
+        <div class="geo-shape code-bracket-left" aria-hidden="true">{</div>
+        <div class="geo-shape code-bracket-right" aria-hidden="true">}</div>
+        <div class="geo-shape pill-accent" aria-hidden="true"></div>
+        <div class="geo-shape floating-ui" aria-hidden="true">
+            <div class="ui-dot red"></div>
+            <div class="ui-dot yellow"></div>
+            <div class="ui-dot green"></div>
+        </div>
+        <div class="geo-shape squiggle" aria-hidden="true">
+            <svg viewBox="0 0 100 20" fill="none">
+                <path d="M5 10C15 10 15 0 25 0C35 0 35 10 45 10C55 10 55 0 65 0C75 0 75 10 85 10C95 10 95 0 100 0"
+                    stroke="currentColor" stroke-width="4" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="../../OSTIRO-main/index.html" aria-label="Accueil"><i class="fas fa-rocket" aria-hidden="true"></i></a>
+        </div>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/titouan-mouysset" target="_blank" aria-label="LinkedIn"><i
+                    class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="https://twitter.com/chocolatxaris" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"
+                    aria-hidden="true"></i></a>
+            <a href="https://www.instagram.com/titouanmyt" target="_blank" aria-label="Instagram"><i
+                    class="fab fa-instagram" aria-hidden="true"></i></a>
+        </div>
+    </header>
+
+    <main>
+        <div class="app-container">
+            <h1 class="hero-text">CodeSources Grabber.</h1>
+
+            <!-- Scan Section -->
+            <section class="glass-panel" id="scan-panel">
+                <form id="scan-form" class="scan-form">
+                    <div class="input-main">
+                        <input type="url" id="url-input" placeholder="https://example.com" required
+                            autocomplete="off" />
+                        <button type="submit" id="scan-btn" class="cta-button">Scanner</button>
+                    </div>
+
+                    <div class="options-row">
+                        <label class="opt-group">Max Pages: <input type="number" id="opt-max-pages" value="30"
+                                min="1"></label>
+                        <label class="opt-group">Max Links Depth: <input type="number" id="opt-max-depth" value="4"
+                                min="1"></label>
+                    </div>
+
+                    <div id="global-error" class="hidden"
+                        style="color:var(--accent-pink); font-weight:600; margin-top:10px;">
+                        ⚠ <span id="global-error-msg"></span>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Progress Section -->
+            <section id="progress-section" class="glass-panel hidden">
+                <div class="prog-header">
+                    <h3 id="progress-title">
+                        <div class="pulse-dot" id="p-dot"></div> Initialisation...
+                    </h3>
+                    <button id="stop-btn" class="cta-button"
+                        style="padding: 10px 20px; font-size:0.8rem; background:#EF4444;">Arrêter</button>
+                </div>
+
+                <div class="prog-bar">
+                    <div class="prog-fill" id="prog-bar-fill"></div>
+                </div>
+                <div
+                    style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:600; margin-bottom:15px; color:var(--muted);">
+                    <span>File: <span id="prog-bar-label">0/0</span></span>
+                    <span>Pages (<span id="s-pages" style="color:var(--accent-blue)">0</span>) | Erreurs (<span
+                            id="s-errors" style="color:#EF4444">0</span>)</span>
+                </div>
+
+                <div
+                    style="font-size:0.8rem; font-weight:600; text-transform:uppercase; margin-bottom:5px; display:flex; justify-content:space-between;">
+                    Terminal Log <button id="clear-log-btn" class="legal-trigger">Clear</button>
+                </div>
+                <div class="terminal-box" id="log-lines"></div>
+            </section>
+
+            <!-- Results Section -->
+            <div id="results-nav" class="res-header hidden">
+                <h2>Résultats <span id="results-badge" class="badge">0</span></h2>
+                <div style="display:flex; gap:10px;">
+                    <button id="dl-zip-btn" class="cta-button" style="padding:12px 24px; font-size:0.85rem;">Télécharger
+                        ZIP</button>
+                    <button id="new-scan-btn" class="legal-trigger" style="font-weight:700;">🔄 Nouveau scan</button>
+                </div>
+            </div>
+
+            <section id="results-section" class="results-grid hidden">
+                <aside id="pages-sidebar" class="pages-sidebar glass-panel" style="padding:0;"></aside>
+
+                <div class="viewer">
+                    <div id="viewer-empty" class="viewer-empty">Sélectionnez une page pour voir le code</div>
+
+                    <div id="viewer-content" class="hidden" style="display:flex; flex-direction:column; height:100%;">
+                        <div id="viewer-tabs" class="viewer-tabs"></div>
+                        <div id="viewer-panels" style="flex-grow:1;"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <div style="margin-top: 4rem; margin-bottom: 2rem; display: flex; justify-content: center; width: 100%;">
+                <a href="https://cal.com/ostiro-network/30min" target="_blank" class="cta-button">
+                    <span class="cta-text">Démarrer un projet</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Arrow (Liquid Glass) -->
+    <div class="floating-arrow-left">
+        <a href="../../OSTIRO-main/tools.html" class="glass-arrow" aria-label="Retour aux outils">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+    </div>
+
+    <!-- Legal Footer (Tekiyo Style) -->
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span>© 2026 Ostiro Network</span>
+            <span class="dot">·</span>
+            <span>Hébergé par GitHub</span>
+        </div>
+        <div class="footer-center">
+            <a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a>
+        </div>
+        <div class="footer-right">
+            <button id="legal-btn" class="legal-trigger">Legal</button>
+        </div>
+    </footer>
+
+    <!-- Liquid Glass Modal -->
+    <div id="legal-modal" class="legal-modal">
+        <div class="legal-glass-card">
+            <div class="legal-header">
+                <p>Ostiro Network · Marseillan, FR</p>
+                <p><a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></p>
+            </div>
+
+            <div class="legal-body">
+                <p class="section-title">DATA</p>
+                <p>Minimal collection (contact info only).</p>
+                <p>Never shared. Fully encrypted.</p>
+                <br>
+                <p>GDPR rights: access, deletion, portability.</p>
+                <p>Request: <a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></p>
+                <br>
+                <p>Controller: Ostiro Network</p>
+                <p>Host: GitHub Inc.</p>
+            </div>
+
+            <div class="legal-footer-note">
+                <p>All rights reserved © 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=11"></script>
+</body>
+
+</html>
