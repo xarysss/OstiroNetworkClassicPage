@@ -1,0 +1,21 @@
+<svg width="800" height="480" viewBox="0 0 800 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sc1" x1="0" y1="0" x2="800" y2="480" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3a2a20"/><stop offset="1" stop-color="#1a120c"/>
+    </linearGradient>
+    <radialGradient id="sc1g" cx="0.3" cy="0.25" r="0.8">
+      <stop stop-color="#c98a4b" stop-opacity="0.45"/><stop offset="1" stop-color="#c98a4b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="480" rx="20" fill="url(#sc1)"/>
+  <rect width="800" height="480" rx="20" fill="url(#sc1g)"/>
+  <!-- browser chrome -->
+  <rect x="0" y="0" width="800" height="44" rx="20" fill="#000" fill-opacity="0.25"/>
+  <circle cx="28" cy="22" r="5" fill="#ff5f57"/><circle cx="48" cy="22" r="5" fill="#febc2e"/><circle cx="68" cy="22" r="5" fill="#28c840"/>
+  <rect x="300" y="13" width="200" height="18" rx="9" fill="#fff" fill-opacity="0.12"/>
+  <!-- wordmark -->
+  <text x="400" y="230" text-anchor="middle" font-family="Georgia, serif" font-size="58" fill="#fbeeda" letter-spacing="4">Maison Lora</text>
+  <text x="400" y="270" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#e8cfa8" letter-spacing="6">CUISINE DE SAISON · MARSEILLAN</text>
+  <rect x="320" y="312" width="160" height="44" rx="22" fill="#fbeeda"/>
+  <text x="400" y="340" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="#2a1c12" font-weight="600">Réserver une table</text>
+</svg>

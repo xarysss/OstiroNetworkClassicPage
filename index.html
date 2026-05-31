@@ -1,168 +1,591 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ostiro Network — Des sites qui convertissent</title>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='rocketGrad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23c0c8d8;stop-opacity:1' /><stop offset='100%' style='stop-color:%23000000;stop-opacity:1' /></linearGradient></defs><circle cx='50' cy='50' r='48' fill='%23ffffff' stroke='%23000000' stroke-width='2'/><path d='M50 20 L35 65 L50 75 L65 65 Z' fill='url(%23rocketGrad)'/><circle cx='50' cy='45' r='8' fill='%23000000'/><path d='M35 65 L25 70 M65 65 L75 70' stroke='%23000000' stroke-width='3' stroke-linecap='round'/><path d='M42 75 L50 85 L58 75' fill='%23666666'/></svg>">
-    <meta name="description" content="Agence digitale créative. Nous créons des sites web qui vendent pour vous.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ostiro Network — Sites web qui convertissent</title>
+  <meta name="description" content="Agence digitale créative. Nous concevons des sites vitrines élégants, pensés pour transformer vos visiteurs en clients.">
+  <link rel="canonical" href="https://ostiro.network.fr/">
 
-    <!-- SEO & Social -->
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://ostiro-network.fr/">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ostiro Network — Sites web qui convertissent">
+  <meta property="og:description" content="Agence digitale créative. Des sites vitrines pensés pour convertir.">
+  <meta property="og:url" content="https://ostiro.network.fr/">
+  <meta property="og:type" content="website">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Ostiro Network — Des sites qui convertissent">
-    <meta property="og:description"
-        content="Agence digitale créative. Nous créons des sites web qui vendent pour vous.">
-    <meta property="og:url" content="https://ostiro-network.fr/">
-    <meta property="og:image" content="/images/preview.jpg">
-    <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="Flavicon.png?v=3" type="image/png">
+  <link rel="stylesheet" href="styles.css">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ostiro Network — Des sites qui convertissent">
-    <meta name="twitter:description"
-        content="Agence digitale créative. Nous créons des sites web qui vendent pour vous.">
-    <meta name="twitter:image" content="/images/preview.jpg">
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Ostiro Network",
-      "url": "https://ostiro-network.fr",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "", 
-        "contactType": "customer service",
-        "email": "ostiro.network@gmail.com"
-      }
-    }
-    </script>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Ostiro Network",
+    "description": "Agence digitale créative — sites vitrines qui convertissent.",
+    "url": "https://ostiro.network.fr",
+    "email": "ostiro.network@gmail.com",
+    "areaServed": "France",
+    "founder": "Titouan Mouysset",
+    "address": { "@type": "PostalAddress", "addressLocality": "Marseillan", "addressCountry": "FR" }
+  }
+  </script>
 </head>
-
 <body>
 
-    <!-- Background Art / Composition -->
-    <!-- Background Creative Elements -->
-    <div class="creative-background">
-        <!-- Geometric Shapes -->
-        <div class="geo-shape cube-3d" aria-hidden="true"></div>
-        <div class="geo-shape circle-gradient" aria-hidden="true"></div>
-        <div class="geo-shape code-bracket-left" aria-hidden="true">{</div>
-        <div class="geo-shape code-bracket-right" aria-hidden="true">}</div>
-        <div class="geo-shape pill-accent" aria-hidden="true"></div>
-        <div class="geo-shape floating-ui" aria-hidden="true">
-            <div class="ui-dot red"></div>
-            <div class="ui-dot yellow"></div>
-            <div class="ui-dot green"></div>
-        </div>
-        <div class="geo-shape squiggle" aria-hidden="true">
-            <svg viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 10C15 10 15 0 25 0C35 0 35 10 45 10C55 10 55 0 65 0C75 0 75 10 85 10C95 10 95 0 100 0"
-                    stroke="currentColor" stroke-width="4" />
-            </svg>
-        </div>
+  <!-- ===== Écran d'entrée (flouté -> nuée de mots -> site) ===== -->
+  <div class="intro" id="intro">
+    <img class="intro-logo" src="assets/logo.svg?v=2" alt="Ostiro Network" width="30" height="38">
+    <button class="intro-enter" id="introEnter">Entrer</button>
+    <div class="intro-words" id="introWords" aria-hidden="true">
+      <span>OBSERVER</span><span>COMPRENDRE</span><span>CONCEVOIR</span><span>AFFINER</span>
+      <span>SIMPLIFIER</span><span>STRUCTURER</span><span>CONSTRUIRE</span><span>LIVRER</span><span>PRÉCISION</span>
+      <span>INTENTION</span><span>CLARTÉ</span><span>PIXEL</span><span>EXIGENCE</span><span>IMPACT</span>
+      <span>RIGUEUR</span><span>LISIBILITÉ</span><span>VISION</span><span>RYTHME</span><span>DÉTAIL</span>
+      <span>STRATÉGIE</span><span>ÉLÉGANCE</span><span>PERFORMANCE</span><span>MÉTIER</span>
+      <span>EXCELLENCE</span><span>MAÎTRISE</span><span>SENS</span><span>JUSTESSE</span><span class="brand">OSTIRO</span>
     </div>
+  </div>
 
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <a href="index.html" aria-label="Accueil"><i class="fas fa-rocket" aria-hidden="true"></i></a>
-        </div>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/titouan-mouysset" target="_blank" aria-label="LinkedIn"><i
-                    class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-            <a href="https://twitter.com/chocolatxaris" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"
-                    aria-hidden="true"></i></a>
-            <a href="https://www.instagram.com/titouanmyt" target="_blank" aria-label="Instagram"><i
-                    class="fab fa-instagram" aria-hidden="true"></i></a>
-        </div>
-    </header>
+  <main id="main">
 
-    <!-- Main Content -->
-    <main>
-        <h1 class="hero-text">
-            <span class="visually-hidden">Sites web qui convertissent.</span>
-            <!-- Text will be split by characters in JS for animation -->
-            <span class="word" aria-hidden="true">Sites</span>
-            <span class="word" aria-hidden="true">Web</span>
-            <span class="word" aria-hidden="true">qui</span>
-            <span class="word" aria-hidden="true">Convertissent.</span>
+    <!-- ===== HERO : reveal au scroll (250vh) ===== -->
+    <div class="hero-track">
+      <div class="hero-sticky">
+        <div class="hero-bg-clip" id="heroClip">
+          <div class="hero-bg" id="heroBg"><div class="hero-bg-img"></div></div>
+          <div class="hero-bg-fade"></div>
+        </div>
+
+        <header class="hero-header">
+          <a href="#" aria-label="Accueil">
+            <img src="assets/logo.svg?v=2" alt="Ostiro Network" width="28" height="30">
+          </a>
+        </header>
+
+        <div class="hero-intro" id="heroIntro">
+          <span data-word>Agence digitale</span>
+          <span data-word>créative.</span>
+          <span data-word>On conçoit des sites</span>
+          <span data-word>qui travaillent pour vous.</span>
+        </div>
+
+        <h1 class="hero-title" id="heroTitle">
+          <span data-word>Sites web </span><span data-word>qui </span><span data-word>convertissent.</span>
         </h1>
-    </main>
 
-    <!-- Floating CTA (Bottom) -->
-    <div class="floating-cta">
-        <a href="https://cal.com/ostiro-network/30min" target="_blank" class="cta-button">
-            <span class="cta-text">Démarrer un projet</span>
+        <div class="hero-baseline" id="heroBaseline">
+          <p>Un bon site ne se raconte pas <span class="pill-inline"></span> il se regarde.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="service reveal" id="services">
+      <button class="service-trigger" data-open="identityLayer" aria-label="Découvrir : Identité visuelle">
+        <div class="service-canvas" id="identityCanvas" role="img" aria-label="Identité visuelle"></div>
+        <span class="pill">Identité visuelle</span>
+        <span class="service-hint">Cliquer pour découvrir</span>
+      </button>
+    </section>
+
+    <section class="service reveal">
+      <button class="service-trigger" data-open="creationLayer" aria-label="Découvrir : Création de sites">
+        <img src="assets/creation.png" alt="Création de sites" width="300" height="300">
+        <span class="pill">Création de sites</span>
+        <span class="service-hint">Cliquer pour découvrir</span>
+      </button>
+    </section>
+
+    <section class="service reveal">
+      <button class="service-trigger" data-open="visibilityLayer" aria-label="Découvrir : Visibilité et référencement">
+        <div class="service-canvas" id="visibilityCanvas" role="img" aria-label="Visibilité et référencement"></div>
+        <span class="pill">Visibilité &amp; référencement</span>
+        <span class="service-hint">Cliquer pour découvrir</span>
+      </button>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section class="portfolio" id="portfolio">
+      <h2 class="section-title reveal">Réalisations.</h2>
+      <div class="port-grid">
+        <a href="http://crousty.ostiro-network.fr/" target="_blank" rel="noopener" class="port-card reveal">
+          <div class="port-img"><img src="assets/portfolio/crousty.png" alt="Crousty Wok" loading="lazy"></div>
+          <div class="port-meta"><span class="port-cat">Restauration rapide</span><h3>Crousty Wok</h3></div>
         </a>
-    </div>
-
-    <!-- Floating Tools Arrow (Right) -->
-    <div class="floating-arrow-right">
-        <a href="tools.html" class="glass-arrow" aria-label="Nos Outils">
-            <i class="fas fa-chevron-right"></i>
+        <a href="https://www.lesmarinesdhelios.fr/" target="_blank" rel="noopener" class="port-card reveal">
+          <div class="port-img"><img src="assets/portfolio/marines.webp" alt="Les Marines d'Hélios" loading="lazy"></div>
+          <div class="port-meta"><span class="port-cat">Maisons de vacances</span><h3>Les Marines d'Hélios</h3></div>
         </a>
+      </div>
+    </section>
+
+    <!-- ===== FONDATEUR ===== -->
+    <section class="founder reveal">
+      <div class="founder-particles" id="founderParticles" data-src="assets/founder.png?v=6" role="img" aria-label="Titouan Mouysset"></div>
+      <p class="founder-quote">
+        Je conçois chaque site comme une vitrine sur-mesure.<br>
+        Obsédé par le détail, jamais par le superflu.<br>
+        Le reste, vous le verrez dans le travail.
+      </p>
+      <p class="founder-name">Titouan Mouysset, Fondateur</p>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq" id="faq">
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <p class="faq-num">01.</p>
+          <p class="faq-q">Combien coûte un site&nbsp;?</p>
+          <p class="faq-a">Chaque projet fait l'objet d'une estimation personnalisée après un premier échange. Le budget dépend du périmètre, du nombre de pages et de vos ambitions.</p>
+        </div>
+        <div class="faq-item reveal">
+          <p class="faq-num">02.</p>
+          <p class="faq-q">Quels sont vos délais&nbsp;?</p>
+          <p class="faq-a">Comptez quelques semaines selon l'ampleur du projet. Je limite le nombre de projets en parallèle pour garantir un niveau de finition constant.</p>
+        </div>
+        <div class="faq-item reveal">
+          <p class="faq-num">03.</p>
+          <p class="faq-q">Que faites-vous, et que ne faites-vous pas&nbsp;?</p>
+          <p class="faq-a">Je me concentre sur des sites vitrines rapides, élégants et bien référencés. Pas d'usine à gaz : l'objectif est un site qui convertit et qui vieillit bien.</p>
+        </div>
+        <div class="faq-item reveal">
+          <p class="faq-num">04.</p>
+          <p class="faq-q">Que se passe-t-il après la mise en ligne&nbsp;?</p>
+          <p class="faq-a">Chaque projet est livré avec un support (SLA 72h) et le code source vous est fourni. Un suivi optionnel permet de faire évoluer le site dans le temps.</p>
+        </div>
+        <div class="faq-item reveal">
+          <p class="faq-num">05.</p>
+          <p class="faq-q">Comment démarrer&nbsp;?</p>
+          <p class="faq-a">Réservez un appel de 30 minutes. On parle de votre projet, sans engagement, et je vous dis honnêtement si je suis la bonne personne pour le réaliser.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Points de progression ===== -->
+  <div class="scroll-dots" id="scrollDots">
+    <div></div><div></div><div></div>
+  </div>
+
+  <!-- ===== Bottom sheet : Détail "Identité visuelle" ===== -->
+  <div class="sheet-layer" id="identityLayer">
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet sheet-detail">
+      <div class="sheet-handle" data-close><span></span></div>
+      <div class="detail-scroll" data-lenis-prevent>
+        <div class="detail-inner">
+
+          <h2 class="detail-title">Identité visuelle</h2>
+          <p class="detail-lead">Avant le site, il y a la marque. Ce que vous êtes, et la façon dont on vous reconnaît.</p>
+          <p class="detail-lead">On définit votre logo, vos couleurs et votre typographie. Un système précis, cohérent sur tous les supports.</p>
+
+          <figure class="detail-shot"><img src="assets/brandboard.svg" alt="Planche de marque — logo, palette, typographie" loading="lazy"></figure>
+
+          <h3 class="detail-h3">Comment on travaille</h3>
+          <p class="detail-text">On part de ce qui vous distingue, puis on en fait des règles claires : un logo net, une palette, une typographie. Chaque choix a une raison. Aucune décoration gratuite.</p>
+
+          <figure class="detail-shot"><img src="assets/showcase2.svg" alt="Application de l'identité sur un site" loading="lazy"></figure>
+
+          <ul class="detail-points">
+            <li><span>01</span> Logo et ses déclinaisons</li>
+            <li><span>02</span> Palette de couleurs et contrastes</li>
+            <li><span>03</span> Typographie et hiérarchie</li>
+            <li><span>04</span> Règles d'utilisation claires</li>
+          </ul>
+
+          <h3 class="detail-h3">Ce que ça change</h3>
+          <p class="detail-text">Une marque reconnaissable inspire confiance avant même le premier mot. On vous prend au sérieux dès le premier regard.</p>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Legal Footer (Tekiyo Style) -->
-    <footer class="site-footer">
-        <div class="footer-left">
-            <span>© 2026 Ostiro Network</span>
-            <span class="dot">·</span>
-            <span>Hébergé par GitHub</span>
-        </div>
-        <div class="footer-center">
-            <a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a>
-        </div>
-        <div class="footer-right">
-            <button id="legal-btn" class="legal-trigger">Legal</button>
-        </div>
-    </footer>
+  <!-- ===== Bottom sheet : Détail "Création de sites" ===== -->
+  <div class="sheet-layer" id="creationLayer">
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet sheet-detail">
+      <div class="sheet-handle" data-close><span></span></div>
+      <div class="detail-scroll" data-lenis-prevent>
+        <div class="detail-inner">
 
-    <!-- Liquid Glass Modal -->
-    <div id="legal-modal" class="legal-modal">
-        <div class="legal-glass-card">
-            <div class="legal-header">
-                <p>Ostiro Network · Marseillan, FR</p>
-                <p><a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></p>
-            </div>
+          <h2 class="detail-title">Création de sites</h2>
+          <p class="detail-lead">Un site n'est pas une brochure. C'est une expérience, conçue au pixel près.</p>
+          <p class="detail-lead">Du design à la mise en ligne, on construit des sites rapides, clairs et faits pour convertir.</p>
 
-            <div class="legal-body">
-                <p class="section-title">DATA</p>
-                <p>Minimal collection (contact info only).</p>
-                <p>Never shared. Fully encrypted.</p>
-                <br>
-                <p>GDPR rights: access, deletion, portability.</p>
-                <p>Request: <a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></p>
-                <br>
-                <p>Controller: Ostiro Network</p>
-                <p>Host: GitHub Inc.</p>
-            </div>
+          <figure class="detail-shot"><img src="assets/showcase1.svg" alt="Exemple de site — restaurant" loading="lazy"></figure>
 
-            <div class="legal-footer-note">
-                <p>All rights reserved © 2026</p>
-            </div>
+          <h3 class="detail-h3">Comment on travaille</h3>
+          <p class="detail-text">On dessine chaque écran, on soigne chaque interaction, on optimise chaque temps de chargement. Le détail n'est pas un luxe : c'est ce qui fait la différence.</p>
+
+          <figure class="detail-shot"><img src="assets/ecom1.svg" alt="Exemple de site — boutique" loading="lazy"></figure>
+
+          <ul class="detail-points">
+            <li><span>01</span> Design sur-mesure, fidèle à votre marque</li>
+            <li><span>02</span> Mobile, tablette, ordinateur — partout net</li>
+            <li><span>03</span> Chargement rapide, sans superflu</li>
+            <li><span>04</span> Code propre, livré et hébergé</li>
+          </ul>
+
+          <h3 class="detail-h3">Ce que ça change</h3>
+          <p class="detail-text">Un site soigné se ressent dès la première seconde. Le visiteur reste, comprend, et agit.</p>
         </div>
+      </div>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <!-- ===== Bottom sheet : Détail "Visibilité & référencement" ===== -->
+  <div class="sheet-layer" id="visibilityLayer">
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet sheet-detail">
+      <div class="sheet-handle" data-close><span></span></div>
+      <div class="detail-scroll" data-lenis-prevent>
+        <div class="detail-inner">
+
+          <h2 class="detail-title">Visibilité &amp; référencement</h2>
+          <p class="detail-lead">Le meilleur site ne sert à rien si personne ne le trouve.</p>
+          <p class="detail-lead">On structure votre présence pour que les bons clients tombent sur vous, au bon moment.</p>
+
+          <figure class="detail-shot"><img src="assets/seo1.svg" alt="Résultats de recherche — première position" loading="lazy"></figure>
+
+          <h3 class="detail-h3">Comment on travaille</h3>
+          <p class="detail-text">Mots-clés de votre métier, structure technique, contenu clair, vitesse. Des bases solides qui font remonter durablement. Aucune promesse magique.</p>
+
+          <figure class="detail-shot"><img src="assets/seo2.svg" alt="Tableau de bord — trafic en hausse" loading="lazy"></figure>
+
+          <ul class="detail-points">
+            <li><span>01</span> Audit et mots-clés de votre marché</li>
+            <li><span>02</span> Structure technique : vitesse, balises</li>
+            <li><span>03</span> Contenu pensé pour le référencement</li>
+            <li><span>04</span> Suivi des positions et du trafic</li>
+          </ul>
+
+          <h3 class="detail-h3">Ce que ça rapporte</h3>
+          <p class="detail-text">Être trouvé au bon moment, c'est capter des clients déjà décidés. Le trafic qui vient des moteurs travaille pour vous, mois après mois.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Bottom sheet : Réseaux (liquid glass) ===== -->
+  <div class="sheet-layer glass" id="socialLayer">
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet sheet-social">
+      <div class="social-blobs">
+        <span style="width:70vmax;height:70vmax;background:#2563EB;left:15%;top:20%"></span>
+        <span style="width:75vmax;height:75vmax;background:#7C3AED;left:75%;top:55%"></span>
+        <span style="width:65vmax;height:65vmax;background:#60A5FA;left:50%;top:10%"></span>
+        <span style="width:60vmax;height:60vmax;background:#EC4899;left:25%;top:75%"></span>
+        <span style="width:80vmax;height:80vmax;background:#a0c3d7;left:85%;top:35%"></span>
+        <span style="width:55vmax;height:55vmax;background:#7C3AED;left:40%;top:45%"></span>
+      </div>
+      <div class="social-noise"></div>
+      <div class="sheet-handle"><span></span></div>
+      <div class="social-links">
+        <a href="https://discord.gg/VOTRE-INVITATION" target="_blank" rel="noopener" class="social-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.6 12.6 0 0 0-.617-1.249.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.009c.12.099.246.198.373.292a.077.077 0 0 1-.006.127c-.598.349-1.22.645-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.331c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+          Discord
+        </a>
+        <a href="https://www.tiktok.com/@VOTRE-COMPTE" target="_blank" rel="noopener" class="social-link">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.72a8.16 8.16 0 0 0 4.77 1.52V6.79a4.85 4.85 0 0 1-1.01-.1z"/></svg>
+          TikTok
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Bottom sheet : Legal / RGPD ===== -->
+  <div class="sheet-layer glass" id="legalLayer">
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet sheet-sm sheet-legal">
+      <div class="sheet-handle"><span></span></div>
+      <div class="legal-content" data-lenis-prevent>
+        <p class="legal-head">Ostiro Network · Marseillan, FR<br><a href="mailto:ostiro.network@gmail.com">ostiro.network@gmail.com</a></p>
+        <p class="legal-section">DONNÉES</p>
+        <p>Collecte minimale (informations de contact uniquement). Jamais partagées.</p>
+        <p>Droits RGPD : accès, suppression, portabilité — sur simple demande par email.</p>
+        <p class="legal-note">Responsable : Ostiro Network · Hébergeur : GitHub Inc. · Tous droits réservés © <span class="year2"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Dock flottant (apparaît sur les pages détail) ===== -->
+  <div class="dock" id="dock" aria-hidden="true">
+    <button class="dock-btn dock-outer" id="openSocial" data-dock="social" aria-label="Réseaux sociaux" tabindex="-1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="18" cy="5" r="3"/>
+        <circle cx="6" cy="12" r="3"/>
+        <circle cx="18" cy="19" r="3"/>
+        <path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/>
+      </svg>
+    </button>
+    <button class="dock-btn dock-inner" id="openCalendar" data-dock="calendar" aria-label="Prendre rendez-vous" tabindex="-1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3.5" y="5" width="17" height="16" rx="3"/>
+        <path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/>
+      </svg>
+    </button>
+    <button type="button" class="dock-cta dock-center" id="openContact">Commencer</button>
+    <button class="dock-btn dock-inner" id="openWhatsapp" data-dock="whatsapp" aria-label="WhatsApp" tabindex="-1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+        <path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/>
+      </svg>
+    </button>
+    <button class="dock-btn dock-outer dock-alert" id="openLegal" data-dock="info" aria-label="Informations importantes" tabindex="-1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 11.5v4.5"/>
+        <circle cx="12" cy="7.8" r="0.7" fill="currentColor" stroke="none"/>
+      </svg>
+      <span class="dock-dot"></span>
+    </button>
+  </div>
+
+  <!-- ===== Formulaire de contact (se déploie depuis "Commencer") ===== -->
+  <div class="contact-layer" id="contactLayer" aria-hidden="true">
+    <div class="contact-backdrop" data-contact-close></div>
+    <div class="contact-panel" role="dialog" aria-modal="true" aria-label="Démarrer un projet">
+      <button class="contact-close" id="contactClose" data-contact-close aria-label="Fermer">&times;</button>
+      <form class="contact-form" id="contactForm" novalidate>
+        <label>Nom
+          <input type="text" name="nom" placeholder="Jean Dupont" autocomplete="name" required>
+        </label>
+        <label>Adresse mail
+          <input type="email" name="email" placeholder="jean@acme.com" autocomplete="email" required>
+        </label>
+        <label>Téléphone
+          <input type="tel" name="tel" placeholder="+33 6 12 34 56 78" autocomplete="tel">
+        </label>
+        <label>Entreprise
+          <input type="text" name="entreprise" placeholder="Acme Inc." autocomplete="organization">
+        </label>
+        <label>Votre projet
+          <textarea name="projet" rows="3" placeholder="En quelques mots..."></textarea>
+        </label>
+        <button type="submit" class="contact-send">Envoyer</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/lenis.min.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Icosaèdre filaire (Three.js) au-dessus de "Identité visuelle" -->
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script>
+  (function () {
+    var mount = document.getElementById('identityCanvas');
+    if (!mount || typeof THREE === 'undefined') return;
+
+    function size() { return Math.min(mount.clientWidth, mount.clientHeight) || 300; }
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, 1, 2, 1000);
+    camera.position.z = 320;
+
+    var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(size(), size());
+    mount.appendChild(renderer.domElement);
+
+    var geometry = new THREE.IcosahedronGeometry(100, 1);
+    var material = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
+    var mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    function resize() {
+      var s = size();
+      renderer.setSize(s, s);
+      camera.aspect = 1;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize, { passive: true });
+
+    // ne tourne que lorsque le conteneur est visible (économie de ressources)
+    var visible = false;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }, { threshold: 0.05 })
+        .observe(mount);
+    } else { visible = true; }
+
+    (function animate() {
+      requestAnimationFrame(animate);
+      if (!visible) return;
+      mesh.rotation.x += 0.03;
+      mesh.rotation.y += 0.02;
+      renderer.render(scene, camera);
+    })();
+  })();
+  </script>
+
+  <!-- Orbites de points reliés (canvas 2D) au-dessus de "Visibilité & référencement" -->
+  <script>
+  (function () {
+    var mount = document.getElementById('visibilityCanvas');
+    if (!mount) return;
+
+    var canvas = document.createElement('canvas');
+    mount.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var size = 300, w = size, h = size, cx = size / 2, cy = size / 2;
+
+    function resize() {
+      size = Math.min(mount.clientWidth, mount.clientHeight) || 300;
+      w = h = size; cx = cy = size / 2;
+      canvas.width = size * dpr; canvas.height = size * dpr;
+      canvas.style.width = size + 'px'; canvas.style.height = size + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);   // repart d'un fond blanc propre
+    }
+
+    var PI2 = 2 * Math.PI;
+    var pointCounts = [2,3,4,5,6,7,8,9,10,11,12,13,14];   // points par anneau
+    var distances   = [8];                                 // écart entre anneaux (plus petit)
+    var speeds      = [0.5, -0.5];                          // sens de rotation alterné
+    var minDist     = 5;                                    // distance max pour relier 2 points
+    var points = [];
+
+    function Point(speed, dist, rad){ this.speed=speed; this.dist=dist; this.rad=rad; this.x=0; this.y=0; }
+    Point.prototype.update = function (frames) {
+      this.rad += frames * this.speed; this.rad %= PI2;
+      while (this.rad < 0) this.rad += PI2;
+      this.x = cx + Math.cos(this.rad) * this.dist;
+      this.y = cy + Math.sin(this.rad) * this.dist;
+    };
+    Point.prototype.draw = function () {
+      ctx.beginPath(); ctx.arc(this.x, this.y, 1, 0, PI2); ctx.fill(); ctx.closePath();
+    };
+    function near(p1, p2, d){ return (p2.x-p1.x)*(p2.x-p1.x)+(p2.y-p1.y)*(p2.y-p1.y) <= d*d; }
+
+    function init(){
+      points = []; var cur = 0;
+      for (var i=0; i<pointCounts.length; ++i){
+        var count = pointCounts[i], spacing = PI2/count;
+        cur += distances[i] || distances[i % distances.length];
+        for (var j=0; j<count; ++j)
+          points.push(new Point(speeds[i] || speeds[i % speeds.length], cur, spacing*j));
+      }
+    }
+
+    var increment = 0.01;
+    var visible = false;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }, { threshold: 0.05 }).observe(mount);
+    } else { visible = true; }
+
+    function anim(){
+      requestAnimationFrame(anim);
+      if (!visible) return;
+      // léger voile blanc => traînées douces (couleurs inversées)
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.10)';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#000';     // points noirs
+      ctx.strokeStyle = '#000';   // liens noirs
+      for (var i=0; i<points.length; ++i){
+        var p1 = points[i]; p1.update(increment);
+        for (var j=i+1; j<points.length; ++j){
+          var p2 = points[j];
+          if (near(p1, p2, minDist)){
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); ctx.closePath();
+          }
+        }
+        p1.draw();
+      }
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize(); init(); anim();
+  })();
+  </script>
+
+  <!-- Portrait du fondateur en particules (pre-calcule, fonctionne en file:// et hors-ligne) -->
+  <script src="assets/founder-particles.js"></script>
+  <script>
+  (function () {
+    var mount = document.getElementById('founderParticles');
+    if (!mount || !window.FOUNDER_PARTICLES) return;
+    var DATA = window.FOUNDER_PARTICLES;
+
+    var canvas = document.createElement('canvas');
+    mount.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 290, H = 330, DOT = 0.82;
+    var pointer = { x: 0, y: 0, active: false, force: 0 };
+
+    function fit() {
+      W = mount.clientWidth || 280; H = mount.clientHeight || 280;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    fit();
+
+    // q = [nx, ny, gris(0-255)]
+    var particles = DATA.pts.map(function (q) {
+      return {
+        nx: q[0], ny: q[1], c: q[2],
+        x: W / 2 + (Math.random() - 0.5) * W * 1.2,
+        y: H / 2 + (Math.random() - 0.5) * H * 1.2,
+        vx: 0, vy: 0, ph: Math.random() * Math.PI * 2
+      };
+    });
+
+    function setPointer(e) {
+      var r = canvas.getBoundingClientRect();
+      pointer.x = (e.clientX - r.left) * (W / r.width);
+      pointer.y = (e.clientY - r.top) * (H / r.height);
+      pointer.active = true;
+    }
+    mount.addEventListener('pointermove', setPointer, { passive: true });
+    mount.addEventListener('pointerenter', setPointer, { passive: true });
+    mount.addEventListener('pointerleave', function () { pointer.active = false; }, { passive: true });
+
+    var visible = false, t = 0;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e){ visible = e[0].isIntersecting; }, { threshold: 0.1 }).observe(mount);
+    } else { visible = true; }
+
+    function frame() {
+      requestAnimationFrame(frame);
+      if (!visible) return;
+      t += 0.016;
+      pointer.force += ((pointer.active ? 1 : 0) - pointer.force) * 0.12;
+      ctx.clearRect(0, 0, W, H);
+      for (var k = 0; k < particles.length; k++) {
+        var p = particles[k];
+        var tx = p.nx * W + Math.cos(t * 1.6 + p.ph) * 1.15;
+        var ty = p.ny * H + Math.sin(t * 1.35 + p.ph) * 1.25;
+
+        if (pointer.force > 0.01) {
+          var dx = tx - pointer.x, dy = ty - pointer.y;
+          var d2 = dx * dx + dy * dy;
+          var radius = Math.min(W, H) * 0.24;
+          var r2 = radius * radius;
+          if (d2 < r2) {
+            var d = Math.sqrt(d2) || 1;
+            var push = Math.pow(1 - d / radius, 2) * radius * 0.9 * pointer.force;
+            tx += (dx / d) * push;
+            ty += (dy / d) * push;
+          }
+        }
+
+        p.vx = (p.vx + (tx - p.x) * 0.026) * 0.84;
+        p.vy = (p.vy + (ty - p.y) * 0.026) * 0.84;
+        p.x += p.vx; p.y += p.vy;
+        ctx.fillStyle = 'rgb(' + p.c + ',' + p.c + ',' + p.c + ')';
+        ctx.beginPath(); ctx.arc(p.x, p.y, DOT, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    window.addEventListener('resize', fit, { passive: true });
+    frame();
+  })();
+  </script>
+
 </body>
-
 </html>

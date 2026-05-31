@@ -1,0 +1,24 @@
+<svg width="800" height="480" viewBox="0 0 800 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="480" rx="20" fill="#ffffff"/>
+  <rect x="0" y="0" width="800" height="44" rx="20" fill="#f1f3f5"/>
+  <circle cx="28" cy="22" r="5" fill="#ff5f57"/><circle cx="48" cy="22" r="5" fill="#febc2e"/><circle cx="68" cy="22" r="5" fill="#28c840"/>
+  <!-- search bar -->
+  <rect x="40" y="74" width="500" height="44" rx="22" fill="#fff" stroke="#e3e6ea"/>
+  <circle cx="68" cy="96" r="8" stroke="#9aa3b2" stroke-width="2"/><line x1="74" y1="102" x2="82" y2="110" stroke="#9aa3b2" stroke-width="2"/>
+  <text x="96" y="101" font-family="Inter" font-size="15" fill="#3a3f47">restaurant marseillan plage</text>
+  <!-- result 1 (top, highlighted) -->
+  <rect x="40" y="140" width="720" height="92" rx="14" fill="#eef4ff" stroke="#2563EB" stroke-opacity="0.35"/>
+  <rect x="56" y="156" width="44" height="20" rx="10" fill="#2563EB"/><text x="78" y="171" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="#fff">#1</text>
+  <text x="112" y="172" font-family="Inter" font-size="13" fill="#1a7f37">maison-lora.fr</text>
+  <text x="56" y="200" font-family="Inter" font-size="18" font-weight="600" fill="#1a4fc4">Maison Lora — Cuisine de saison à Marseillan</text>
+  <text x="56" y="222" font-family="Inter" font-size="13" fill="#5f6772">Réservez votre table en bord de mer. Produits frais, menu du jour…</text>
+  <!-- result 2 -->
+  <text x="112" y="276" font-family="Inter" font-size="13" fill="#1a7f37">autre-restaurant.fr</text>
+  <text x="56" y="300" font-family="Inter" font-size="17" font-weight="500" fill="#6b7280">Un autre établissement du secteur</text>
+  <text x="56" y="322" font-family="Inter" font-size="13" fill="#9aa3b2">Description du résultat concurrent…</text>
+  <line x1="56" y1="346" x2="744" y2="346" stroke="#eef0f2"/>
+  <!-- result 3 -->
+  <text x="112" y="378" font-family="Inter" font-size="13" fill="#1a7f37">annuaire-resto.fr</text>
+  <text x="56" y="402" font-family="Inter" font-size="17" font-weight="500" fill="#6b7280">Annuaire des restaurants</text>
+  <text x="56" y="424" font-family="Inter" font-size="13" fill="#9aa3b2">Liste générique, peu qualifiée…</text>
+</svg>

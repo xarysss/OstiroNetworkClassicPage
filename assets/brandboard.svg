@@ -1,0 +1,40 @@
+<svg width="800" height="480" viewBox="0 0 800 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bb" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/><stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" rx="20" fill="#f6f6f7"/>
+  <rect x="0" y="0" width="800" height="44" rx="20" fill="#fff"/>
+  <circle cx="28" cy="22" r="5" fill="#ff5f57"/><circle cx="48" cy="22" r="5" fill="#febc2e"/><circle cx="68" cy="22" r="5" fill="#28c840"/>
+  <text x="40" y="92" font-family="'Outfit', Inter, sans-serif" font-size="15" fill="#111" font-weight="600" letter-spacing="3">SYSTÈME DE MARQUE</text>
+
+  <!-- logo mark -->
+  <rect x="40" y="116" width="220" height="200" rx="16" fill="#fff"/>
+  <circle cx="150" cy="196" r="44" stroke="url(#bb)" stroke-width="12"/>
+  <rect x="150" y="184" width="56" height="24" rx="12" fill="#fff"/>
+  <rect x="150" y="184" width="42" height="12" rx="6" fill="#111"/>
+  <text x="150" y="290" text-anchor="middle" font-family="Inter" font-size="12" fill="#9aa0a8">Logo principal</text>
+
+  <!-- palette -->
+  <rect x="288" y="116" width="220" height="200" rx="16" fill="#fff"/>
+  <rect x="312" y="148" width="76" height="76" rx="12" fill="#2563EB"/>
+  <rect x="408" y="148" width="76" height="36" rx="8" fill="#7C3AED"/>
+  <rect x="408" y="188" width="76" height="36" rx="8" fill="#EC4899"/>
+  <rect x="312" y="236" width="172" height="22" rx="6" fill="#111"/>
+  <rect x="312" y="266" width="120" height="22" rx="6" fill="#e3e5e8"/>
+  <text x="312" y="306" font-family="Inter" font-size="12" fill="#9aa0a8">Palette &amp; contrastes</text>
+
+  <!-- typography -->
+  <rect x="536" y="116" width="224" height="200" rx="16" fill="#fff"/>
+  <text x="560" y="226" font-family="'Outfit', Inter, sans-serif" font-size="100" font-weight="700" fill="#111">Aa</text>
+  <text x="560" y="262" font-family="Inter" font-size="14" fill="#3a3f47" font-weight="600">Outfit · Inter</text>
+  <text x="560" y="290" font-family="Inter" font-size="12" fill="#9aa0a8">Titres &amp; textes</text>
+
+  <!-- baseline applications -->
+  <text x="40" y="364" font-family="Inter" font-size="13" fill="#3a3f47" font-weight="600">Une marque cohérente, déclinée partout.</text>
+  <rect x="40" y="384" width="150" height="56" rx="12" fill="#0f1117"/>
+  <rect x="62" y="404" width="22" height="22" rx="11" stroke="url(#bb)" stroke-width="4"/>
+  <rect x="206" y="384" width="150" height="56" rx="12" fill="#fff"/>
+  <rect x="372" y="384" width="150" height="56" rx="12" fill="url(#bb)"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg width="64" height="80" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg"
+     stroke="#0a0a0a" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+  <!-- ogive triangulaire + corps rectangulaire -->
+  <path d="M32 4 L46 28 L46 56 L18 56 L18 28 Z" fill="#ffffff"/>
+  <!-- hublot -->
+  <circle cx="32" cy="38" r="6" fill="#ffffff"/>
+  <!-- ailerons -->
+  <path d="M18 45 L8 60 L18 54 Z" fill="#ffffff"/>
+  <path d="M46 45 L56 60 L46 54 Z" fill="#ffffff"/>
+  <!-- tuyère -->
+  <path d="M27 56 L28 64 L36 64 L37 56" fill="#ffffff"/>
+  <!-- flamme -->
+  <path d="M29 66 L32 75 L35 66"/>
+</svg>
