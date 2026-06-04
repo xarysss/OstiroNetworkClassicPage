@@ -1,0 +1,7 @@
+/node_modules/* /404 404
+/telegram-support-bot/* /404 404
+/sales-kit/* /404 404
+/.env /404 404
+/.env.* /404 404
+/package.json /404 404
+/package-lock.json /404 404

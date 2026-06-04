@@ -1,0 +1,4 @@
+Contact: mailto:ostiro.network@gmail.com
+Preferred-Languages: fr, en
+Canonical: https://ostiro-network.fr/.well-known/security.txt
+Expires: 2027-06-04T23:59:00+02:00

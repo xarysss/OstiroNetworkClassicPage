@@ -10,6 +10,8 @@ document.querySelectorAll('.year2').forEach(el => el.textContent = y);
 // ===== Utilitaires =====
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const map = (v, a, b, c, d) => c + ((v - a) * (d - c)) / (b - a);
+const lerp = (a, b, t) => a + (b - a) * t;
+const smoothstep = (t) => t * t * (3 - 2 * t);
 
 // ===== Son doux (Web Audio, déclenché par geste utilisateur) =====
 let audioCtx = null;
@@ -73,11 +75,17 @@ const pillInline   = document.querySelector('.pill-inline');
 const heroBgFade   = document.querySelector('.hero-bg-fade');
 
 let heroProgress = 0;   // avancement de l'animation hero (0 -> 1)
+let heroAutoProgress = 0;
+let heroAutoStarted = false;
 
 function updateHero() {
   const rect = heroTrack.getBoundingClientRect();
   const total = heroTrack.offsetHeight - window.innerHeight;
-  const progress = clamp(-rect.top / total, 0, 1);
+  const scrollProgress = clamp(-rect.top / total, 0, 1);
+  const scrollFromAuto = heroAutoStarted
+    ? clamp(heroAutoProgress + scrollProgress * 1.08, 0, 1)
+    : scrollProgress;
+  const progress = Math.max(scrollFromAuto, heroAutoProgress);
   heroProgress = progress;
 
   introWords.forEach((w, i) => {
@@ -98,27 +106,62 @@ function updateHero() {
   });
 
   // l'image rétrécit en une petite carte arrondie
-  const p = clamp(map(progress, 0.42, 0.84, 0, 1), 0, 1);
-  heroClip.style.transform = `scale(${1 - p * 0.86})`;     // 1 -> ~0.14
-  heroClip.style.borderRadius = (p * 120) + 'px';
-  heroBg.style.transform = `scale(${1 + p * 0.12})`;
+  const rawShrink = clamp(map(progress, 0.56, 0.985, 0, 1), 0, 1);
+  const p = smoothstep(rawShrink);
+  const pillW = pillInline ? pillInline.offsetWidth || 96 : 96;
+  const pillH = pillInline ? pillInline.offsetHeight || 56 : 56;
+  const layoutW = document.documentElement.clientWidth || window.innerWidth;
+  const targetScaleX = pillW / layoutW;
+  const targetScaleY = pillH / window.innerHeight;
+  const scaleX = lerp(1, targetScaleX, p);
+  const scaleY = lerp(1, targetScaleY, p);
+  const pillRect = pillInline ? pillInline.getBoundingClientRect() : null;
+  const targetX = pillRect ? (pillRect.left + pillRect.width / 2) - (layoutW / 2) : 0;
+  const targetY = pillRect ? (pillRect.top + pillRect.height / 2) - (window.innerHeight / 2) : 0;
+  const visualRadius = pillInline ? parseFloat(getComputedStyle(pillInline).borderRadius) || 14 : 14;
+  const radius = p ? visualRadius / Math.max(Math.min(scaleX, scaleY), 0.001) : 0;
+  heroClip.style.transform = `translate(${targetX * p}px, ${targetY * p}px) scale(${scaleX}, ${scaleY})`;
+  heroClip.style.borderRadius = radius + 'px';
+  heroBg.style.transform = `scale(${1 + p * 0.08})`;
   // on retire le voile blanc du bas pendant le rétrécissement : la carte reste bleu nuit
   if (heroBgFade) heroBgFade.style.opacity = 1 - p;
 
   // ...puis se fond, juste avant de "devenir" la vignette dans le texte
-  heroClip.style.opacity = 1 - clamp(map(progress, 0.72, 0.86, 0, 1), 0, 1);
+  heroClip.style.opacity = 1 - clamp(map(progress, 0.985, 1, 0, 1), 0, 1);
 
   // les textes clairs s'effacent quand l'image rétrécit
-  const fade = 1 - clamp(map(progress, 0.48, 0.7, 0, 1), 0, 1);
+  const fade = 1 - clamp(map(progress, 0.60, 0.86, 0, 1), 0, 1);
   heroIntroEl.style.opacity = fade;
   heroTitleEl.style.opacity = fade;
+  heroTitleEl.style.transform = `translateX(-50%) scale(${1 + Math.sin(p * Math.PI) * 0.035})`;
 
   // la phrase apparaît au centre, là où l'image a rétréci -> passage de relais
-  const reveal = clamp(map(progress, 0.84, 0.96, 0, 1), 0, 1);
+  const reveal = clamp(map(progress, 0.72, 1, 0, 1), 0, 1);
   heroBaseline.style.opacity = reveal;
-  heroBaseline.style.transform = `translate(-50%, -50%) translateY(${(1 - reveal) * 16}px)`;
+  heroBaseline.style.transform = 'translate(-50%, -50%)';
+  const baselineText = heroBaseline.querySelector('p');
+  if (baselineText) baselineText.style.transform = 'none';
   // la vignette grandit dans la phrase, juste après la disparition de l'image
-  if (pillInline) pillInline.style.transform = `scale(${clamp(map(progress, 0.86, 1, 0, 1), 0, 1)})`;
+  if (pillInline) pillInline.style.opacity = clamp(map(progress, 0.97, 1, 0, 1), 0, 1);
+}
+
+function startHeroAutoplay() {
+  if (heroAutoStarted) return;
+  heroAutoStarted = true;
+  const from = heroAutoProgress;
+  const target = 0.48;
+  const duration = 2600;
+  const start = performance.now();
+
+  function step(now) {
+    const t = clamp((now - start) / duration, 0, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    heroAutoProgress = from + (target - from) * eased;
+    requestTick();
+    if (t < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
 }
 
 // ===== Reveal au scroll =====
@@ -232,12 +275,12 @@ if (openSocialBtn) openSocialBtn.addEventListener('click', () => openSheet('soci
 const openCalendarBtn = document.getElementById('openCalendar');
 if (openCalendarBtn) openCalendarBtn.addEventListener('click', () => {
   initAudio(); swoosh(1);
-  window.open('https://cal.com/ostiro-network/30min', '_blank', 'noopener');
+  window.open('https://cal.com/ostiro-network/30min', '_blank', 'noopener,noreferrer');
 });
-const openWhatsappBtn = document.getElementById('openWhatsapp');
-if (openWhatsappBtn) openWhatsappBtn.addEventListener('click', () => {
+const openTelegramBtn = document.getElementById('openTelegram');
+if (openTelegramBtn) openTelegramBtn.addEventListener('click', () => {
   initAudio(); swoosh(1);
-  window.open('https://api.whatsapp.com/message/753AOPMZZLSLJ1?autoload=1&app_absent=0', '_blank', 'noopener');
+  window.open('https://t.me/OstiroNetworkSupportBot', '_blank', 'noopener,noreferrer');
 });
 const openLegalBtn = document.getElementById('openLegal');
 if (openLegalBtn) openLegalBtn.addEventListener('click', () => openSheet('legalLayer'));
@@ -276,13 +319,18 @@ if (contactForm) {
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const f = e.target;
-    const sujet = encodeURIComponent('Nouveau projet — ' + (f.nom.value || 'Ostiro Network'));
+    if (!f.checkValidity()) {
+      f.reportValidity();
+      return;
+    }
+    const clean = (value, max = 500) => String(value || '').replace(/[\u0000-\u001F\u007F]/g, ' ').trim().slice(0, max);
+    const sujet = encodeURIComponent('Nouveau projet — ' + (clean(f.nom.value, 80) || 'Ostiro Network'));
     const corps = encodeURIComponent(
-      'Nom : ' + f.nom.value +
-      '\nEmail : ' + f.email.value +
-      '\nTéléphone : ' + f.tel.value +
-      '\nEntreprise : ' + f.entreprise.value +
-      '\n\nProjet :\n' + f.projet.value
+      'Nom : ' + clean(f.nom.value, 80) +
+      '\nEmail : ' + clean(f.email.value, 120) +
+      '\nTéléphone : ' + clean(f.tel.value, 32) +
+      '\nEntreprise : ' + clean(f.entreprise.value, 100) +
+      '\n\nProjet :\n' + clean(f.projet.value, 1200)
     );
     window.location.href = 'mailto:ostiro.network@gmail.com?subject=' + sujet + '&body=' + corps;
     f.reset();
@@ -405,14 +453,16 @@ function enterSite() {
     intro.classList.add('done');
     if (lenis) { lenis.start(); lenis.scrollTo(0, { immediate: true }); }
     // le dock n'apparaît pas tout de suite : il attend la fin de l'animation hero (cf. syncDock)
-    setTimeout(() => { intro.style.display = 'none'; onFrame(); }, 850);
+    setTimeout(() => { intro.style.display = 'none'; startHeroAutoplay(); onFrame(); }, 850);
   }, revealAt);
 }
 
 if (introEnter) {
   introEnter.addEventListener('click', enterSite);
 } else {
-  // pas d'intro -> on affiche le dock normalement
-  setTimeout(showDock, 350);
+  // pas d'intro -> le site démarre directement
+  entered = true;
+  if (lenis) lenis.start();
+  setTimeout(() => { startHeroAutoplay(); onFrame(); }, 350);
 }
 })();

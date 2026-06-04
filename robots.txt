@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /node_modules/
+Disallow: /telegram-support-bot/
+Disallow: /sales-kit/
+Disallow: /.env
+Disallow: /package.json
+Disallow: /package-lock.json
+Allow: /
+
+Sitemap: https://ostiro-network.fr/sitemap.xml

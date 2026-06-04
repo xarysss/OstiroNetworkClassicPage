@@ -1,0 +1,7 @@
+node_modules
+telegram-support-bot
+sales-kit
+.env
+.env.*
+package.json
+package-lock.json
