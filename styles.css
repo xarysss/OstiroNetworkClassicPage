@@ -359,6 +359,16 @@ body.sheet-open #main {
 .sheet-layer.glass .social-link { color: rgba(0,0,0,0.78); }
 .sheet-layer.glass .social-link:hover { color: #000; }
 .sheet-layer.glass .sheet-handle span { background: rgba(0,0,0,0.22); }
+.sheet-layer.glass .sheet-legal {
+  width: min(420px, calc(100vw - 28px));
+  max-width: 420px;
+  height: min(520px, calc(100vh - 48px));
+  background: rgba(255,255,255,0.9);
+  border-color: rgba(255,255,255,0.82);
+  box-shadow: 0 22px 62px rgba(0,0,0,0.16), inset 0 1px 0 rgba(255,255,255,0.95);
+}
+.sheet-layer.glass .sheet-legal .sheet-handle { padding: 9px 0 7px; }
+.sheet-layer.glass .sheet-legal .sheet-handle span { width: 24px; height: 3px; background: rgba(0,0,0,0.14); }
 .sheet-handle {
   display: flex; justify-content: center; padding: 12px 0 10px; flex-shrink: 0; position: relative; z-index: 10;
   cursor: grab; touch-action: none; user-select: none;
@@ -395,8 +405,8 @@ body.sheet-open #main {
 
 /* ===== sheet détail service (plein écran, net) ===== */
 .sheet-detail {
-  max-width: none; width: 100%; height: calc(84.5vh + 2px);
-  border-radius: 32px 32px 0 0; background: #fff;
+  max-width: none; width: 100%; height: calc(92vh + 2px);
+  border-radius: 28px 28px 0 0; background: #fff;
 }
 .sheet-detail .sheet-handle { padding: 10px 0 8px; }
 .sheet-detail .sheet-handle span { width: 30px; height: 4px; background: rgba(0,0,0,0.11); }
@@ -528,11 +538,23 @@ body.sheet-open #main {
 }
 
 /* sheet legal */
-.sheet-legal { background: #fff; }
-.legal-content { padding: 4px 28px 32px; font-size: 13px; line-height: 1.6; color: rgba(0,0,0,0.55); overflow-y: auto; }
+.sheet-legal { background: rgba(255,255,255,0.9); }
+.legal-content {
+  flex: 1; min-height: 0;
+  padding: 8px 30px 30px;
+  font-size: 13px; line-height: 1.58;
+  color: rgba(0,0,0,0.58);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
 .legal-content a { color: var(--blue); text-decoration: none; }
-.legal-head { color: #000; font-weight: 400; margin-bottom: 18px; }
-.legal-section { font-size: 11px; letter-spacing: 1px; color: rgba(0,0,0,0.35); margin: 16px 0 6px; }
+.legal-head {
+  font-family: var(--display);
+  color: rgba(0,0,0,0.86);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.legal-section { font-size: 11px; letter-spacing: 0.8px; color: rgba(0,0,0,0.36); margin: 18px 0 6px; }
 .legal-content p { margin-bottom: 8px; }
 .legal-note { margin-top: 18px; font-size: 11px; color: rgba(0,0,0,0.35); }
 .legal-missing { color: rgba(0,0,0,0.38); font-style: italic; }
