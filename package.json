@@ -1,0 +1,14 @@
+{
+  "name": "ostiro-telegram-support",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bot": "node telegram-support-bot/index.js",
+    "bot:check": "node telegram-support-bot/check-config.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "grammy": "^1.43.0"
+  }
+}

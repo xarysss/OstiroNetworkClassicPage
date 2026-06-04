@@ -1,7 +1,7 @@
 .env
 .env.*
+!.env.example
 node_modules/
-telegram-support-bot/
+telegram-support-bot/data/
 sales-kit/
-package.json
-package-lock.json
+*.log
