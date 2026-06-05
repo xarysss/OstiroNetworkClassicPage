@@ -258,6 +258,7 @@ function openSheet(id) {
   if (!layer) return;
   const isLegal = id === 'legalLayer';
   layer.classList.add('open');
+  if (isLegal) layer.setAttribute('aria-hidden', 'false');
   // les fenêtres liquid glass ne scalent/grisent pas le fond
   if (!GLASS_LAYERS.includes(id)) document.body.classList.add('sheet-open');
   if (lenis && !isLegal) lenis.stop();      // la fiche info reste une modale légère
@@ -269,6 +270,7 @@ function openSheet(id) {
 function closeSheets() {
   const wasOpen = document.querySelector('.sheet-layer.open');
   document.querySelectorAll('.sheet-layer.open').forEach(l => l.classList.remove('open'));
+  document.querySelectorAll('.sheet-layer[aria-hidden="false"]').forEach(l => l.setAttribute('aria-hidden', 'true'));
   document.body.classList.remove('sheet-open');
   if (lenis) lenis.start();
   if (wasOpen && !wasOpen.matches('#legalLayer')) {
