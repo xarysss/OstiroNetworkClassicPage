@@ -255,6 +255,7 @@ function syncDock() {
 const GLASS_LAYERS = ['socialLayer', 'legalLayer'];
 function openSheet(id) {
   const layer = document.getElementById(id);
+  if (!layer) return;
   layer.classList.add('open');
   // les fenêtres liquid glass ne scalent/grisent pas le fond
   if (!GLASS_LAYERS.includes(id)) document.body.classList.add('sheet-open');

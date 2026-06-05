@@ -369,6 +369,25 @@ body.sheet-open #main {
 }
 .sheet-layer.glass .sheet-legal .sheet-handle { padding: 9px 0 7px; }
 .sheet-layer.glass .sheet-legal .sheet-handle span { width: 24px; height: 3px; background: rgba(0,0,0,0.14); }
+#legalLayer {
+  z-index: 90;
+}
+#legalLayer .sheet-backdrop {
+  background: rgba(255,255,255,0.36);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+#legalLayer .sheet-legal {
+  left: 50%;
+  bottom: auto;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + 18px)) scale(0.98);
+  opacity: 0;
+}
+#legalLayer.open .sheet-legal {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
 .sheet-handle {
   display: flex; justify-content: center; padding: 12px 0 10px; flex-shrink: 0; position: relative; z-index: 10;
   cursor: grab; touch-action: none; user-select: none;
