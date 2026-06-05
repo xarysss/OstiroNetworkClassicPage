@@ -304,9 +304,8 @@ function openLegalPanel() {
     'position:fixed',
     'inset:0',
     'z-index:2147483647',
-    'display:flex',
-    'align-items:center',
-    'justify-content:center',
+    'display:grid',
+    'place-items:center',
     'padding:18px',
     'background:rgba(255,255,255,0.78)',
     'backdrop-filter:blur(18px)',
@@ -316,18 +315,17 @@ function openLegalPanel() {
   const panel = document.createElement('div');
   panel.style.cssText = [
     'position:relative',
-    'width:min(420px,calc(100vw - 32px))',
-    'height:min(520px,calc(100vh - 54px))',
+    'width:min(430px,100%)',
+    'max-height:calc(100vh - 36px)',
     'overflow:auto',
     'background:#fff',
     'color:#111',
     'border:1px solid rgba(0,0,0,.1)',
     'border-radius:28px',
-    'box-shadow:0 24px 80px rgba(0,0,0,.18)',
-    'padding:30px 30px 28px',
+    'box-shadow:0 28px 90px rgba(0,0,0,.24)',
+    'padding:30px 32px',
     'font:13px/1.58 Inter,-apple-system,Segoe UI,sans-serif',
-    '-webkit-font-smoothing:antialiased',
-    'transform:translateY(46px)'
+    '-webkit-font-smoothing:antialiased'
   ].join(';');
 
   const close = document.createElement('button');
