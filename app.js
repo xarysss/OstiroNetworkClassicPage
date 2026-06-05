@@ -256,11 +256,14 @@ const GLASS_LAYERS = ['socialLayer', 'legalLayer'];
 function openSheet(id) {
   const layer = document.getElementById(id);
   if (!layer) return;
+  const isLegal = id === 'legalLayer';
   layer.classList.add('open');
   // les fenêtres liquid glass ne scalent/grisent pas le fond
   if (!GLASS_LAYERS.includes(id)) document.body.classList.add('sheet-open');
-  if (lenis) lenis.stop();                 // fige le fond pendant l'ouverture
-  sheetActive = true; syncDock();          // le dock s'efface sur les pages annexes
+  if (lenis && !isLegal) lenis.stop();      // la fiche info reste une modale légère
+  if (!isLegal) {
+    sheetActive = true; syncDock();         // le dock s'efface sur les pages annexes lourdes
+  }
   initAudio(); swoosh(1);                  // swoosh à l'ouverture
 }
 function closeSheets() {
@@ -268,7 +271,9 @@ function closeSheets() {
   document.querySelectorAll('.sheet-layer.open').forEach(l => l.classList.remove('open'));
   document.body.classList.remove('sheet-open');
   if (lenis) lenis.start();
-  sheetActive = false; syncDock();         // réapparaît si l'animation hero est terminée
+  if (wasOpen && !wasOpen.matches('#legalLayer')) {
+    sheetActive = false; syncDock();        // réapparaît si l'animation hero est terminée
+  }
   if (wasOpen) swoosh(-1, 0.42, 0.045);   // swoosh inverse, plus doux, à la fermeture
 }
 const openSocialBtn = document.getElementById('openSocial');

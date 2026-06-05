@@ -370,12 +370,12 @@ body.sheet-open #main {
 .sheet-layer.glass .sheet-legal .sheet-handle { padding: 9px 0 7px; }
 .sheet-layer.glass .sheet-legal .sheet-handle span { width: 24px; height: 3px; background: rgba(0,0,0,0.14); }
 #legalLayer {
-  z-index: 90;
+  z-index: 140;
 }
 #legalLayer .sheet-backdrop {
-  background: rgba(255,255,255,0.36);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.72);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 #legalLayer .sheet-legal {
   left: 50%;
@@ -383,6 +383,7 @@ body.sheet-open #main {
   top: 50%;
   transform: translate(-50%, calc(-50% + 18px)) scale(0.98);
   opacity: 0;
+  outline: 1px solid rgba(0,0,0,0.08);
 }
 #legalLayer.open .sheet-legal {
   transform: translate(-50%, -50%) scale(1);
@@ -557,10 +558,20 @@ body.sheet-open #main {
 }
 
 /* sheet legal */
-.sheet-legal { background: rgba(255,255,255,0.9); }
+.sheet-legal { background: rgba(255,255,255,0.96); }
+.legal-close {
+  position: absolute; top: 12px; right: 14px; z-index: 12;
+  width: 30px; height: 30px; border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.82);
+  color: rgba(0,0,0,0.6);
+  font-size: 19px; line-height: 1;
+  cursor: pointer;
+}
+.legal-close:hover { color: #000; background: #fff; }
 .legal-content {
   flex: 1; min-height: 0;
-  padding: 8px 30px 30px;
+  padding: 14px 32px 32px;
   font-size: 13px; line-height: 1.58;
   color: rgba(0,0,0,0.58);
   overflow-y: auto;
@@ -570,8 +581,10 @@ body.sheet-open #main {
 .legal-head {
   font-family: var(--display);
   color: rgba(0,0,0,0.86);
-  font-weight: 500;
-  margin-bottom: 18px;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 600;
+  margin: 4px 42px 20px 0;
 }
 .legal-section { font-size: 11px; letter-spacing: 0.8px; color: rgba(0,0,0,0.36); margin: 18px 0 6px; }
 .legal-content p { margin-bottom: 8px; }
