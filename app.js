@@ -290,8 +290,101 @@ if (openTelegramBtn) openTelegramBtn.addEventListener('click', () => {
   initAudio(); swoosh(1);
   window.open('https://t.me/OstiroNetworkSupportBot', '_blank', 'noopener,noreferrer');
 });
+
+function openLegalPanel() {
+  const existing = document.getElementById('legalHardPanel');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'legalHardPanel';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'Informations Ostiro Network');
+  overlay.style.cssText = [
+    'position:fixed',
+    'inset:0',
+    'z-index:2147483647',
+    'display:grid',
+    'place-items:center',
+    'padding:18px',
+    'background:rgba(255,255,255,0.78)',
+    'backdrop-filter:blur(18px)',
+    '-webkit-backdrop-filter:blur(18px)'
+  ].join(';');
+
+  const panel = document.createElement('div');
+  panel.style.cssText = [
+    'position:relative',
+    'width:min(430px,100%)',
+    'max-height:calc(100vh - 36px)',
+    'overflow:auto',
+    'background:#fff',
+    'color:#111',
+    'border:1px solid rgba(0,0,0,.1)',
+    'border-radius:28px',
+    'box-shadow:0 28px 90px rgba(0,0,0,.24)',
+    'padding:30px 32px',
+    'font:13px/1.58 Inter,-apple-system,Segoe UI,sans-serif',
+    '-webkit-font-smoothing:antialiased'
+  ].join(';');
+
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.setAttribute('aria-label', 'Fermer');
+  close.textContent = '×';
+  close.style.cssText = [
+    'position:absolute',
+    'top:12px',
+    'right:14px',
+    'width:30px',
+    'height:30px',
+    'border-radius:999px',
+    'border:1px solid rgba(0,0,0,.08)',
+    'background:#fff',
+    'color:rgba(0,0,0,.68)',
+    'font-size:20px',
+    'line-height:1',
+    'cursor:pointer'
+  ].join(';');
+
+  const source = document.querySelector('#legalLayer .legal-content');
+  const content = document.createElement('div');
+  content.innerHTML = source ? source.innerHTML : '<p><strong>Ostiro Network</strong></p><p>Email : ostiro.network@gmail.com</p><p>SIRET : 99908735600013</p>';
+  content.style.cssText = 'padding-right:8px';
+  content.querySelectorAll('a').forEach(a => {
+    a.style.color = '#2563EB';
+    a.style.textDecoration = 'none';
+  });
+  content.querySelectorAll('.legal-head').forEach(el => {
+    el.style.cssText = 'font-family:Outfit,Inter,sans-serif;font-size:15px;line-height:1.35;font-weight:600;color:rgba(0,0,0,.86);margin:0 42px 20px 0';
+  });
+  content.querySelectorAll('.legal-section').forEach(el => {
+    el.style.cssText = 'font-size:11px;letter-spacing:.8px;color:rgba(0,0,0,.38);margin:18px 0 6px';
+  });
+  content.querySelectorAll('p').forEach(el => {
+    el.style.marginBottom = '8px';
+  });
+
+  const remove = () => {
+    overlay.remove();
+    document.removeEventListener('keydown', onKey);
+  };
+  const onKey = (e) => { if (e.key === 'Escape') remove(); };
+  close.addEventListener('click', remove);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) remove(); });
+  document.addEventListener('keydown', onKey);
+
+  panel.appendChild(close);
+  panel.appendChild(content);
+  overlay.appendChild(panel);
+  document.body.appendChild(overlay);
+  close.focus({ preventScroll: true });
+}
 const openLegalBtn = document.getElementById('openLegal');
-if (openLegalBtn) openLegalBtn.addEventListener('click', () => openSheet('legalLayer'));
+if (openLegalBtn) openLegalBtn.addEventListener('click', () => {
+  initAudio(); swoosh(1);
+  openLegalPanel();
+});
 document.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openSheet(b.dataset.open)));
 let suppressSheetCloseClickUntil = 0;
 document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => {
